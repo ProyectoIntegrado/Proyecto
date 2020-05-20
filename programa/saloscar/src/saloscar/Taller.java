@@ -36,10 +36,12 @@ import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
+import javax.swing.JCheckBox;
 
 public class Taller extends JFrame {
 
 	private JPanel contentPane;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -128,7 +130,7 @@ public class Taller extends JFrame {
 		Comercial.setBackground(Color.LIGHT_GRAY);
 		contentPane.add(Comercial, BorderLayout.WEST);
 		
-		JLabel lblNewLabel = new JLabel("A\u00F1adir reserva alquiler");
+		JLabel lblNewLabel = new JLabel("Cliente Taller");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
@@ -136,10 +138,10 @@ public class Taller extends JFrame {
 		
 		JLabel lblNewLabel_2 = new JLabel("Matr\u00EDcula");
 		
-		JLabel lblNewLabel_3 = new JLabel("Fecha alquilaer");
+		JLabel lblNewLabel_3 = new JLabel("Fecha entrada");
 		
-		JLabel lblNewLabel_4 = new JLabel("Fecha entrega");
-		Comercial.setLayout(new MigLayout("", "[71px][5px][63px,grow][5px][61px][5px][63px][5px][76.00px][9.00]", "[25px][20px][20px][20px][20px][20px]"));
+		JLabel lblNewLabel_4 = new JLabel("Fecha Salida");
+		Comercial.setLayout(new MigLayout("", "[71px][5px][63px,grow][5px][61px,grow][5px][63px][5px][76.00px][9.00]", "[25px][20px][20px][20px][20px][grow][][][][][20px]"));
 		Comercial.add(lblNewLabel, "cell 0 0 9 1,alignx center,aligny top");
 		Comercial.add(lblNewLabel_1, "cell 0 1,alignx left,aligny center");
 		
@@ -158,34 +160,77 @@ public class Taller extends JFrame {
 		JDateChooser dateChooser_1 = new JDateChooser();
 		Comercial.add(dateChooser_1, "cell 2 4 7 1,growx,aligny top");
 		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("Aceite");
+		Comercial.add(chckbxNewCheckBox, "cell 0 5");
+		
+		JCheckBox chckbxNewCheckBox_5 = new JCheckBox("Filrros");
+		Comercial.add(chckbxNewCheckBox_5, "cell 2 5");
+		
+		JPanel panel = new JPanel();
+		Comercial.add(panel, "cell 4 5 5 5,grow");
+		
+		JLabel lblNewLabel_5 = new JLabel("");
+		lblNewLabel_5.setIcon(new ImageIcon(Taller.class.getResource("/imagenes/WhatsApp Image 2020-05-20 at 21.43.26.jpeg")));
+		panel.add(lblNewLabel_5);
+		
+		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Frenos");
+		Comercial.add(chckbxNewCheckBox_1, "cell 0 6");
+		
+		JCheckBox chckbxNewCheckBox_2 = new JCheckBox("Ruedos");
+		Comercial.add(chckbxNewCheckBox_2, "cell 0 7");
+		
+		JCheckBox chckbxNewCheckBox_3 = new JCheckBox("Pintura");
+		Comercial.add(chckbxNewCheckBox_3, "cell 0 8");
+		
+		JCheckBox chckbxNewCheckBox_4 = new JCheckBox("Bujios");
+		Comercial.add(chckbxNewCheckBox_4, "cell 0 9");
+		
 		JButton btnNewButton_5 = new JButton("Anterior");
-		Comercial.add(btnNewButton_5, "cell 0 5,alignx left,aligny top");
+		Comercial.add(btnNewButton_5, "cell 0 10,alignx left,aligny top");
 		
 		JButton btnNewButton_6 = new JButton("Enviar");
-		Comercial.add(btnNewButton_6, "cell 2 5,alignx left,aligny top");
+		Comercial.add(btnNewButton_6, "cell 2 10,alignx left,aligny top");
 		
 		JButton btnNewButton_7 = new JButton("Editar");
-		Comercial.add(btnNewButton_7, "cell 4 5,alignx left,aligny top");
+		Comercial.add(btnNewButton_7, "cell 4 10,alignx left,aligny top");
 		
 		JButton btnNewButton_8 = new JButton("Borrar");
-		Comercial.add(btnNewButton_8, "cell 6 5,alignx left,aligny top");
+		Comercial.add(btnNewButton_8, "cell 6 10,alignx left,aligny top");
 		
 		JButton btnNewButton_9 = new JButton("Siguiente");
-		Comercial.add(btnNewButton_9, "cell 8 5,alignx left,aligny top");
+		Comercial.add(btnNewButton_9, "cell 8 10,alignx left,aligny top");
 		
 		JPanel Buscar = new JPanel();
 		contentPane.add(Buscar, BorderLayout.EAST);
 		
-		JLabel lblNewLabel_8 = new JLabel("Fecha");
+		JLabel lblNewLabel_8 = new JLabel("Buscar");
+		lblNewLabel_8.setIcon(new ImageIcon(Taller.class.getResource("/imagenes/iconmonstr-magnifier-4-32.png")));
 		lblNewLabel_8.setForeground(Color.BLUE);
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		JLabel lblNewLabel_9 = new JLabel("Consultas sobre Taller");
+		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_9.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		
+		JLabel lblNewLabel_10 = new JLabel("Consultas Taller");
+		
+		JComboBox comboBox = new JComboBox();
+		
+		JScrollPane scrollPane = new JScrollPane();
 		GroupLayout gl_Buscar = new GroupLayout(Buscar);
 		gl_Buscar.setHorizontalGroup(
 			gl_Buscar.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_Buscar.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblNewLabel_8, GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+					.addGroup(gl_Buscar.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel_9, GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+						.addComponent(lblNewLabel_8, GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+						.addGroup(gl_Buscar.createSequentialGroup()
+							.addComponent(lblNewLabel_10, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+							.addGap(10)
+							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 308, GroupLayout.PREFERRED_SIZE))
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 397, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		gl_Buscar.setVerticalGroup(
@@ -193,8 +238,29 @@ public class Taller extends JFrame {
 				.addGroup(gl_Buscar.createSequentialGroup()
 					.addGap(5)
 					.addComponent(lblNewLabel_8)
-					.addContainerGap(274, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblNewLabel_9, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_Buscar.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_Buscar.createSequentialGroup()
+							.addGap(4)
+							.addComponent(lblNewLabel_10))
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(34, Short.MAX_VALUE))
 		);
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null},
+			},
+			new String[] {
+				"Cliente", "Matricula", "Entrada", "Salida"
+			}
+		));
+		scrollPane.setViewportView(table);
 		Buscar.setLayout(gl_Buscar);
 		
 		JPanel aviso = new JPanel();
