@@ -43,9 +43,10 @@ public class usuario extends JFrame {
 	 * Create the frame.
 	 */
 	public usuario() {
+		setResizable(false);
 		setTitle("Clientes Saloscar");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 508, 276);
+		setBounds(100, 100, 519, 255);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -94,9 +95,6 @@ public class usuario extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(28)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblNewLabel_1)
@@ -108,8 +106,11 @@ public class usuario extends JFrame {
 							.addGap(36)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(btnNewButton)
-								.addComponent(btnNewButton_1))))
-					.addContainerGap(15, Short.MAX_VALUE))
+								.addComponent(btnNewButton_1)))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(19)
+							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(35, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
