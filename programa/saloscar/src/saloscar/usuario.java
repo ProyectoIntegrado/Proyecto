@@ -79,7 +79,7 @@ public class usuario extends JFrame {
 				
 				
 				String password = new String(contrasenas); 
-				Comercial comercial = new Comercial();
+				Mian Mian = new Mian();
 				
 				//Conectar sql
 				Conexion cn = new Conexion();
@@ -91,7 +91,7 @@ public class usuario extends JFrame {
 					
 					if (rs.next()) {
 						JOptionPane.showMessageDialog(usuario.this, "Bienvenido a Saloscar, "+rs.getString("nombre")+" "+rs.getString("apellidos"));
-						comercial.setVisible(true);
+						Mian.setVisible(true);
 					}else {
 						JOptionPane.showMessageDialog(null, "Error usuario y contraseña","Error",JOptionPane.ERROR_MESSAGE);
 					}
