@@ -1,15 +1,16 @@
 package saloscar;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import net.miginfocom.swing.MigLayout;
+
+import modelo.Conexion;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -17,11 +18,16 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
+
+@SuppressWarnings("serial")
 public class usuario extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	private JTextField usuario;
+	private JPasswordField contrasena;
 
 	/**
 	 * Launch the application.
@@ -57,15 +63,50 @@ public class usuario extends JFrame {
 		JLabel lblNewLabel_1 = new JLabel("Usuario:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		usuario = new JTextField();
+		usuario.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Contrase\u00F1a: ");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
-		passwordField = new JPasswordField();
+		contrasena = new JPasswordField();
 		
 		JButton btnNewButton = new JButton("Aceptar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String usuarios = usuario.getText();
+				char[] contrasenas = contrasena.getPassword();
+				
+				
+				String password = new String(contrasenas); 
+				Comercial comercial = new Comercial();
+				
+				//Conectar sql
+				Conexion cn = new Conexion();
+				Connection miConexion = cn.getCn();
+
+				try {
+					Statement st = miConexion.createStatement();
+					ResultSet rs = st.executeQuery("SELECT * FROM usuarios where usuario='"+usuarios+"' AND contrasena='"+password+"'");
+					
+					if (rs.next()) {
+						JOptionPane.showMessageDialog(usuario.this, "Bienvenido a Saloscar, "+rs.getString("nombre")+" "+rs.getString("apellidos"));
+						comercial.setVisible(true);
+					}else {
+						JOptionPane.showMessageDialog(null, "Error usuario y contraseña","Error",JOptionPane.ERROR_MESSAGE);
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "Error al conectar las base de Datos \n\n  ","",JOptionPane.ERROR_MESSAGE);
+					e1.printStackTrace();
+				}
+				
+
+					
+			
+			
+			}
+		});
 		
 		JButton btnNewButton_1 = new JButton("Cancelar");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -79,14 +120,14 @@ public class usuario extends JFrame {
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(lblNewLabel_1)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE))
+							.addComponent(usuario, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 								.addComponent(btnNewButton)
 								.addComponent(lblNewLabel_2))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(passwordField)
+								.addComponent(contrasena)
 								.addComponent(btnNewButton_1))))
 					.addGap(12))
 		);
@@ -98,11 +139,11 @@ public class usuario extends JFrame {
 							.addGap(28)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblNewLabel_1)
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(usuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblNewLabel_2)
-								.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(contrasena, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(36)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(btnNewButton)
