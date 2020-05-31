@@ -1,0 +1,178 @@
+@charset "UTF-8";
+@font-face {
+  font-family: saloscar;
+  src: url("/font/saloscar.ttf");
+}
+body {
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
+    background-image: url(images/8102.jpg);
+}
+.fondo {
+    background-color: hsla(0,0%,100%,1.00);
+    border-radius: 12px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1026px;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    visibility: inherit;
+}
+.bienvenido {
+    color: hsla(359,81%,44%,1.00);
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding-top: 15px;
+}
+.equipo {
+    width: 291px;
+    background-color: hsla(359,100%,50%,1.00);
+    color: hsla(0,0%,100%,1.00);
+    border-radius: 12px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    float: left;
+    padding-top: 0px;
+    padding-right: 12px;
+    padding-bottom: 5px;
+    padding-left: 12px;
+    text-align: center;
+}
+.grupo-equipo {
+    left: auto;
+    right: auto;
+    text-align: center;
+}
+.grupo-equipo img {
+    border-radius: 105px;
+}
+.app {
+    text-align: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+}
+header {
+    text-align: center;
+    background-color: hsla(0,100%,100%,1.00);
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+nav {
+    background-color: hsla(359,78%,44%,1.00);
+    color: #FDFDFD;
+    text-align: center;
+}
+.menu {
+    list-style-type: none;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0;
+    overflow: hidden;
+    width: 1026px;
+    margin-top: auto;
+    text-align: center;
+    position: relative;
+}
+footer {
+    text-align: center;
+    background-color: hsla(0,0%,38%,1.00);
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+li {
+    text-transform: uppercase;
+    ∫-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    float: left;
+    left: 23%;
+    position: relative;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+li a:hover {
+  background-color: #111111;
+}
+.contacto {
+    background-color: hsla(2,94%,49%,1.00);
+    width: 460px;
+    float: left;
+    border-radius: 12px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    padding-top: 0px;
+    padding-right: 12px;
+    padding-bottom: 5px;
+    padding-left: 12px;
+    text-align: center;
+    height: 559px;
+}
+.contacto p {
+    color: hsla(0,0%,100%,1.00);
+    text-align: justify;
+}
+.contacto p span {
+    color: hsla(0,100%,100%,1.00);
+    font-weight: bold;
+    font-size: 23px;
+}
+.contacto form .form {
+    color: hsla(0,0%,100%,1.00);
+    text-align: left;
+}
+.form label .required {
+    color: hsla(39,100%,83%,1.00);
+    font-size: 21px;
+}
+form .form input {
+    background-color: hsla(0,0%,58%,1.00);
+    width: 96%;
+    color: hsla(0,0%,0%,1.00);
+    font-size: 19px;
+    border-radius: 12px;
+    border-width: 0px;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    margin-top: 4px;
+}
+form .form #mensaje {
+    width: 96%;
+    background-color: hsla(0,0%,58%,1.00);
+    border-radius: 12px;
+    border-width: 0px;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    color: hsla(0,0%,0%,1.00);
+    font-size: 19px;
+    height: 198px;
+    margin-top: 4px;
+}
+.contacto form .enviar {
+    font-size: 19px;
+    border-radius: 12px;
+    background-color: hsla(0,0%,58%,1.00);
+    padding-top: 12px;
+    padding-right: 12px;
+    padding-bottom: 12px;
+    padding-left: 12px;
+    width: 147px;
+}
