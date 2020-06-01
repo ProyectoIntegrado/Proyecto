@@ -1,4 +1,4 @@
-package modelo;
+package saloscar;
 
 import java.sql.*;
 

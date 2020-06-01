@@ -21,8 +21,6 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-import modelo.Conexion;
-
 @SuppressWarnings("serial")
 public class Main extends JFrame {
 
@@ -91,7 +89,7 @@ public class Main extends JFrame {
 					ResultSet rs = st.executeQuery("SELECT * FROM empleado where nombre='"+usuarios+"' AND password='"+password+"'");
 					
 					if (rs.next()) {
-						JOptionPane.showMessageDialog(Main.this, "Bienvenido a Saloscar, "+rs.getString("nombre")+" "+rs.getString("apellido1")+" "+rs.getString("`apellido2"));
+						JOptionPane.showMessageDialog(Main.this, "Bienvenido a Saloscar, "+rs.getString("nombre")+" "+rs.getString("apellido1")+" "+rs.getString("apellido2"));
 						principa1.setVisible(true);
 					}else {
 						JOptionPane.showMessageDialog(null, "Error usuario y contraseña","Error",JOptionPane.ERROR_MESSAGE);
