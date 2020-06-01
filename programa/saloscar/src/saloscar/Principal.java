@@ -34,7 +34,7 @@ public class Principal extends JFrame {
 	private JTextField Comercial_dni_nif;
 	private JTextField Comercial_telefono;
 	private JTextField Comercial_email;
-	private JTextField Comercial_cod_empleado;
+	private JTextField codEmpleado;
 	private JTable table;
 	private JTextField Cliente_nombre;
 	private JTextField Cliente_apellido1;
@@ -71,6 +71,7 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		setAutoRequestFocus(false);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 590);
@@ -170,9 +171,9 @@ public class Principal extends JFrame {
 		JLabel lblNewLabel_7 = new JLabel("Cod_Empleado");
 		Comercial.add(lblNewLabel_7, "cell 0 8,alignx left");
 		
-		Comercial_cod_empleado = new JTextField();
-		Comercial_cod_empleado.setColumns(10);
-		Comercial.add(Comercial_cod_empleado, "cell 1 8 4 1,growx");
+		codEmpleado = new JTextField();
+		codEmpleado.setColumns(10);
+		Comercial.add(codEmpleado, "cell 1 8 4 1,growx");
 		
 		JButton Comercial_anterior = new JButton("Anterior");
 		Comercial.add(Comercial_anterior, "cell 0 12,growx");
@@ -427,13 +428,13 @@ public class Principal extends JFrame {
 		JComboBox Alquiler_matricula = new JComboBox();
 		Alquiler.add(Alquiler_matricula, "cell 1 2 4 1,growx");
 		
-		JLabel lblNewLabel_3_3 = new JLabel("Fecha alquilaer");
+		JLabel lblNewLabel_3_3 = new JLabel("Fecha Inicio");
 		Alquiler.add(lblNewLabel_3_3, "cell 0 3,alignx left");
 		
 		JDateChooser Alquiler_fecha_aquilar = new JDateChooser();
 		Alquiler.add(Alquiler_fecha_aquilar, "cell 1 3 4 1,grow");
 		
-		JLabel lblNewLabel_4_3 = new JLabel("Fecha entrega");
+		JLabel lblNewLabel_4_3 = new JLabel("Fecha Entrega");
 		Alquiler.add(lblNewLabel_4_3, "cell 0 4,alignx left");
 		
 		JDateChooser Alquiler_fecha_entrega = new JDateChooser();
@@ -499,8 +500,8 @@ public class Principal extends JFrame {
 		JDateChooser Taller_entrada = new JDateChooser();
 		Taller.add(Taller_entrada, "cell 1 3 4 1,grow");
 		
-		JScrollPane scrollPane_3 = new JScrollPane();
-		Taller.add(scrollPane_3, "cell 5 3 5 9,grow");
+		JScrollPane scrollPaneTaller = new JScrollPane();
+		Taller.add(scrollPaneTaller, "cell 5 3 5 9,grow");
 		
 		table_3 = new JTable();
 		table_3.setModel(new DefaultTableModel(
@@ -510,7 +511,7 @@ public class Principal extends JFrame {
 				"Cliente", "Marricula", "Fecha entrada", "Fecha salida"
 			}
 		));
-		scrollPane_3.setViewportView(table_3);
+		scrollPaneTaller.setViewportView(table_3);
 		
 		JLabel lblNewLabel_4_4 = new JLabel("Fecha Salida");
 		Taller.add(lblNewLabel_4_4, "cell 0 4");
@@ -528,16 +529,16 @@ public class Principal extends JFrame {
 		JCheckBox Taller_frenos = new JCheckBox("Frenos");
 		Taller.add(Taller_frenos, "cell 0 6");
 		
-		JCheckBox Taller_ruedos = new JCheckBox("Ruedos");
+		JCheckBox Taller_ruedos = new JCheckBox("Ruedas");
 		Taller.add(Taller_ruedos, "cell 0 7");
 		
 		JCheckBox Taller_pintura = new JCheckBox("Pintura");
 		Taller.add(Taller_pintura, "cell 0 8");
 		
-		JCheckBox Taller_bujos = new JCheckBox("Bujios");
+		JCheckBox Taller_bujos = new JCheckBox("Bujias");
 		Taller.add(Taller_bujos, "cell 0 9");
 		
-		JCheckBox Taller_filrros = new JCheckBox("Filrros");
+		JCheckBox Taller_filrros = new JCheckBox("Filtros");
 		Taller.add(Taller_filrros, "cell 0 10");
 		
 		JButton Taller_anterior = new JButton("Anterior");

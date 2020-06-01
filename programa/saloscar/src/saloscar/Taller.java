@@ -37,11 +37,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JCheckBox;
+import java.awt.SystemColor;
 
 public class Taller extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	private JTextField txtMatriculaTaller;
 
 	/**
 	 * Launch the application.
@@ -63,6 +65,7 @@ public class Taller extends JFrame {
 	 * Create the frame.
 	 */
 	public Taller() {
+		setAutoRequestFocus(false);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 924, 418);
@@ -75,7 +78,7 @@ public class Taller extends JFrame {
 		contentPane.add(Botón, BorderLayout.NORTH);
 		Botón.setLayout(new GridLayout(0, 5, 0, 0));
 		
-		JButton btnNewButton = new JButton("Comerciol");
+		JButton btnNewButton = new JButton("Comercial");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Comercial comercial = new Comercial();
@@ -127,7 +130,7 @@ public class Taller extends JFrame {
 		Botón.add(btnNewButton_4);
 		
 		JPanel Comercial = new JPanel();
-		Comercial.setBackground(Color.LIGHT_GRAY);
+		Comercial.setBackground(SystemColor.control);
 		contentPane.add(Comercial, BorderLayout.WEST);
 		
 		JLabel lblNewLabel = new JLabel("Cliente Taller");
@@ -141,64 +144,65 @@ public class Taller extends JFrame {
 		JLabel lblNewLabel_3 = new JLabel("Fecha entrada");
 		
 		JLabel lblNewLabel_4 = new JLabel("Fecha Salida");
-		Comercial.setLayout(new MigLayout("", "[71px][5px][63px,grow][5px][61px,grow][5px][63px][5px][76.00px][9.00]", "[25px][20px][20px][20px][20px][grow][][][][][20px]"));
+		Comercial.setLayout(new MigLayout("", "[71px][5px][63px,grow][5px][61px,grow][5px][63px][5px][76.00px][9.00]", "[25px][20px][20px][20px][20px][grow][][][][][][20px]"));
 		Comercial.add(lblNewLabel, "cell 0 0 9 1,alignx center,aligny top");
 		Comercial.add(lblNewLabel_1, "cell 0 1,alignx left,aligny center");
 		
-		JComboBox comboBox_2 = new JComboBox();
-		Comercial.add(comboBox_2, "cell 2 1 7 1,growx");
+		JComboBox comboClienteTaller = new JComboBox();
+		Comercial.add(comboClienteTaller, "cell 2 1 7 1,growx");
 		Comercial.add(lblNewLabel_2, "cell 0 2,alignx left,aligny center");
 		
-		JComboBox comboBox_1 = new JComboBox();
-		Comercial.add(comboBox_1, "cell 2 2 7 1,growx");
+		txtMatriculaTaller = new JTextField();
+		Comercial.add(txtMatriculaTaller, "cell 2 2 7 1,growx");
+		txtMatriculaTaller.setColumns(10);
 		Comercial.add(lblNewLabel_3, "cell 0 3,alignx left,aligny center");
 		
-		JDateChooser dateChooser = new JDateChooser();
-		Comercial.add(dateChooser, "cell 2 3 7 1,growx,aligny top");
+		JDateChooser dateEntradaTaller = new JDateChooser();
+		Comercial.add(dateEntradaTaller, "cell 2 3 7 1,growx,aligny top");
 		Comercial.add(lblNewLabel_4, "cell 0 4,alignx left,aligny center");
 		
-		JDateChooser dateChooser_1 = new JDateChooser();
-		Comercial.add(dateChooser_1, "cell 2 4 7 1,growx,aligny top");
+		JDateChooser dateSalidaTaller = new JDateChooser();
+		Comercial.add(dateSalidaTaller, "cell 2 4 7 1,growx,aligny top");
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Aceite");
-		Comercial.add(chckbxNewCheckBox, "cell 0 5");
-		
-		JCheckBox chckbxNewCheckBox_5 = new JCheckBox("Filrros");
-		Comercial.add(chckbxNewCheckBox_5, "cell 2 5");
+		JCheckBox CheckBoxAceite = new JCheckBox("Aceite");
+		Comercial.add(CheckBoxAceite, "cell 0 5");
 		
 		JPanel panel = new JPanel();
-		Comercial.add(panel, "cell 4 5 5 5,grow");
+		Comercial.add(panel, "cell 4 5 5 6,grow");
 		
 		JLabel lblNewLabel_5 = new JLabel("");
 		lblNewLabel_5.setIcon(new ImageIcon(Taller.class.getResource("/imagenes/WhatsApp Image 2020-05-20 at 21.43.26.jpeg")));
 		panel.add(lblNewLabel_5);
 		
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Frenos");
-		Comercial.add(chckbxNewCheckBox_1, "cell 0 6");
+		JCheckBox CheckBoxFiltro = new JCheckBox("Filtros");
+		Comercial.add(CheckBoxFiltro, "cell 0 6");
 		
-		JCheckBox chckbxNewCheckBox_2 = new JCheckBox("Ruedos");
-		Comercial.add(chckbxNewCheckBox_2, "cell 0 7");
+		JCheckBox CheckBoxFrenos = new JCheckBox("Frenos");
+		Comercial.add(CheckBoxFrenos, "cell 0 7");
 		
-		JCheckBox chckbxNewCheckBox_3 = new JCheckBox("Pintura");
-		Comercial.add(chckbxNewCheckBox_3, "cell 0 8");
+		JCheckBox CheckBoxRuedas = new JCheckBox("Ruedas");
+		Comercial.add(CheckBoxRuedas, "cell 0 8");
 		
-		JCheckBox chckbxNewCheckBox_4 = new JCheckBox("Bujios");
-		Comercial.add(chckbxNewCheckBox_4, "cell 0 9");
+		JCheckBox CheckBoxPintura = new JCheckBox("Pintura");
+		Comercial.add(CheckBoxPintura, "cell 0 9");
+		
+		JCheckBox CheckBoxBujias = new JCheckBox("Bujias");
+		Comercial.add(CheckBoxBujias, "cell 0 10");
 		
 		JButton btnNewButton_5 = new JButton("Anterior");
-		Comercial.add(btnNewButton_5, "cell 0 10,alignx left,aligny top");
+		Comercial.add(btnNewButton_5, "cell 0 11,alignx left,aligny top");
 		
 		JButton btnNewButton_6 = new JButton("Enviar");
-		Comercial.add(btnNewButton_6, "cell 2 10,alignx left,aligny top");
+		Comercial.add(btnNewButton_6, "cell 2 11,alignx left,aligny top");
 		
 		JButton btnNewButton_7 = new JButton("Editar");
-		Comercial.add(btnNewButton_7, "cell 4 10,alignx left,aligny top");
+		Comercial.add(btnNewButton_7, "cell 4 11,alignx left,aligny top");
 		
 		JButton btnNewButton_8 = new JButton("Borrar");
-		Comercial.add(btnNewButton_8, "cell 6 10,alignx left,aligny top");
+		Comercial.add(btnNewButton_8, "cell 6 11,alignx left,aligny top");
 		
 		JButton btnNewButton_9 = new JButton("Siguiente");
-		Comercial.add(btnNewButton_9, "cell 8 10,alignx left,aligny top");
+		Comercial.add(btnNewButton_9, "cell 8 11,alignx left,aligny top");
 		
 		JPanel Buscar = new JPanel();
 		contentPane.add(Buscar, BorderLayout.EAST);

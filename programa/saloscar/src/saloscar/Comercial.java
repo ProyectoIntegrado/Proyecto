@@ -35,17 +35,23 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.SystemColor;
 
+@SuppressWarnings("unused")
 public class Comercial extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4974770276655780291L;
 	private JPanel contentPane;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField;
-	private JTextField textField_6;
+	private JTextField txtAp1Comercial;
+	private JTextField txtAp2Comercial;
+	private JTextField txtDniComercial;
+	private JTextField txtTlfComercial;
+	private JTextField txtEmail;
+	private JTextField txtNombreComercial;
+	private JTextField txtCodComercial;
 	private JTable table;
 
 	/**
@@ -80,7 +86,7 @@ public class Comercial extends JFrame {
 		contentPane.add(Botón, BorderLayout.NORTH);
 		Botón.setLayout(new GridLayout(0, 5, 0, 0));
 		
-		JButton btnNewButton = new JButton("Comerciol");
+		JButton btnNewButton = new JButton("Comercial");
 		btnNewButton.setEnabled(false);
 		btnNewButton.setBackground(Color.LIGHT_GRAY);
 		btnNewButton.setToolTipText("");
@@ -132,7 +138,7 @@ public class Comercial extends JFrame {
 		Botón.add(btnNewButton_4);
 		
 		JPanel Comercial = new JPanel();
-		Comercial.setBackground(Color.LIGHT_GRAY);
+		Comercial.setBackground(SystemColor.control);
 		contentPane.add(Comercial, BorderLayout.WEST);
 		
 		JLabel lblNewLabel = new JLabel("Comercial");
@@ -141,38 +147,38 @@ public class Comercial extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		txtNombreComercial = new JTextField();
+		txtNombreComercial.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Apellido 1");
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		txtAp1Comercial = new JTextField();
+		txtAp1Comercial.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Apellido 2");
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
+		txtAp2Comercial = new JTextField();
+		txtAp2Comercial.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("DNI/NIF");
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
+		txtDniComercial = new JTextField();
+		txtDniComercial.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("Telefono");
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
+		txtTlfComercial = new JTextField();
+		txtTlfComercial.setColumns(10);
 		
 		JLabel lblNewLabel_6 = new JLabel("E-mail");
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
+		txtEmail = new JTextField();
+		txtEmail.setColumns(10);
 		
 		JLabel lblNewLabel_7 = new JLabel("Cod_Empleado");
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
+		txtCodComercial = new JTextField();
+		txtCodComercial.setColumns(10);
 		
 		JButton btnNewButton_5 = new JButton("Anterior");
 		
@@ -186,19 +192,19 @@ public class Comercial extends JFrame {
 		Comercial.setLayout(new MigLayout("", "[71px][5px][63px][5px][61px][5px][63px][5px][76.00px][9.00]", "[25px][20px][20px][20px][20px][20px][20px][20px][23px]"));
 		Comercial.add(lblNewLabel, "cell 0 0 9 1,alignx center,aligny top");
 		Comercial.add(lblNewLabel_1, "cell 0 1,alignx left,aligny center");
-		Comercial.add(textField, "cell 2 1 7 1,growx,aligny top");
+		Comercial.add(txtNombreComercial, "cell 2 1 7 1,growx,aligny top");
 		Comercial.add(lblNewLabel_2, "cell 0 2,alignx left,aligny center");
-		Comercial.add(textField_1, "cell 2 2 7 1,growx,aligny top");
+		Comercial.add(txtAp1Comercial, "cell 2 2 7 1,growx,aligny top");
 		Comercial.add(lblNewLabel_3, "cell 0 3,alignx left,aligny center");
-		Comercial.add(textField_2, "cell 2 3 7 1,growx,aligny top");
+		Comercial.add(txtAp2Comercial, "cell 2 3 7 1,growx,aligny top");
 		Comercial.add(lblNewLabel_4, "cell 0 4,alignx left,aligny center");
-		Comercial.add(textField_3, "cell 2 4 7 1,growx,aligny top");
+		Comercial.add(txtDniComercial, "cell 2 4 7 1,growx,aligny top");
 		Comercial.add(lblNewLabel_5, "cell 0 5,alignx left,aligny center");
-		Comercial.add(textField_4, "cell 2 5 7 1,growx,aligny top");
+		Comercial.add(txtTlfComercial, "cell 2 5 7 1,growx,aligny top");
 		Comercial.add(lblNewLabel_6, "cell 0 6,alignx left,aligny center");
-		Comercial.add(textField_5, "cell 2 6 7 1,growx,aligny top");
+		Comercial.add(txtEmail, "cell 2 6 7 1,growx,aligny top");
 		Comercial.add(lblNewLabel_7, "cell 0 7,alignx left,aligny center");
-		Comercial.add(textField_6, "cell 2 7 7 1,growx,aligny top");
+		Comercial.add(txtCodComercial, "cell 2 7 7 1,growx,aligny top");
 		Comercial.add(btnNewButton_5, "cell 0 8,alignx left,aligny top");
 		Comercial.add(btnNewButton_6, "cell 2 8,alignx left,aligny top");
 		Comercial.add(btnNewButton_7, "cell 4 8,alignx left,aligny top");

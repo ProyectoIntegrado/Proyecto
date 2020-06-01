@@ -36,19 +36,20 @@ import javax.swing.JScrollPane;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.SystemColor;
 
 public class Cliente extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField;
-	private JTextField textField_6;
+	private JTextField txtAp1Cliente;
+	private JTextField txtAp2Cliente;
+	private JTextField txtDniCliente;
+	private JTextField txtDireccionCliente;
+	private JTextField txtPoblacionCliente;
+	private JTextField txtNombreCliente;
+	private JTextField txtTlfCliente;
 	private JTable table;
-	private JTextField textField_7;
+	private JTextField txtEmailCliente;
 
 	/**
 	 * Launch the application.
@@ -70,6 +71,7 @@ public class Cliente extends JFrame {
 	 * Create the frame.
 	 */
 	public Cliente() {
+		setAutoRequestFocus(false);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 924, 418);
@@ -82,7 +84,7 @@ public class Cliente extends JFrame {
 		contentPane.add(Botón, BorderLayout.NORTH);
 		Botón.setLayout(new GridLayout(0, 5, 0, 0));
 		
-		JButton btnNewButton = new JButton("Comerciol");
+		JButton btnNewButton = new JButton("Comercial");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Comercial comercial = new Comercial();
@@ -134,7 +136,7 @@ public class Cliente extends JFrame {
 		Botón.add(btnNewButton_4);
 		
 		JPanel Comercial = new JPanel();
-		Comercial.setBackground(Color.LIGHT_GRAY);
+		Comercial.setBackground(SystemColor.control);
 		contentPane.add(Comercial, BorderLayout.WEST);
 		
 		JLabel lblNewLabel = new JLabel("Cliente ");
@@ -143,67 +145,67 @@ public class Cliente extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		txtNombreCliente = new JTextField();
+		txtNombreCliente.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Apellido 1");
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		txtAp1Cliente = new JTextField();
+		txtAp1Cliente.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Apellido 2");
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
+		txtAp2Cliente = new JTextField();
+		txtAp2Cliente.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("DNI/NIF");
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
+		txtDniCliente = new JTextField();
+		txtDniCliente.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("Direcci\u00F3n ");
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
+		txtDireccionCliente = new JTextField();
+		txtDireccionCliente.setColumns(10);
 		
 		JLabel lblNewLabel_6 = new JLabel("Poblaci\u00F3n");
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
+		txtPoblacionCliente = new JTextField();
+		txtPoblacionCliente.setColumns(10);
 		
 		JLabel lblNewLabel_7 = new JLabel("Telefono");
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
+		txtTlfCliente = new JTextField();
+		txtTlfCliente.setColumns(10);
 		Comercial.setLayout(new MigLayout("", "[71px][5px][63px,grow][5px][61px][5px][63px][5px][76.00px][9.00]", "[25px][20px][20px][20px][20px][20px][20px][20px][23px,grow][][]"));
 		Comercial.add(lblNewLabel, "cell 0 0 9 1,alignx center,aligny top");
 		Comercial.add(lblNewLabel_1, "cell 0 1,alignx left,aligny center");
-		Comercial.add(textField, "cell 2 1 7 1,growx,aligny top");
+		Comercial.add(txtNombreCliente, "cell 2 1 7 1,growx,aligny top");
 		Comercial.add(lblNewLabel_2, "cell 0 2,alignx left,aligny center");
-		Comercial.add(textField_1, "cell 2 2 7 1,growx,aligny top");
+		Comercial.add(txtAp1Cliente, "cell 2 2 7 1,growx,aligny top");
 		Comercial.add(lblNewLabel_3, "cell 0 3,alignx left,aligny center");
-		Comercial.add(textField_2, "cell 2 3 7 1,growx,aligny top");
+		Comercial.add(txtAp2Cliente, "cell 2 3 7 1,growx,aligny top");
 		Comercial.add(lblNewLabel_4, "cell 0 4,alignx left,aligny center");
-		Comercial.add(textField_3, "cell 2 4 7 1,growx,aligny top");
+		Comercial.add(txtDniCliente, "cell 2 4 7 1,growx,aligny top");
 		Comercial.add(lblNewLabel_5, "cell 0 5,alignx left,aligny center");
-		Comercial.add(textField_4, "cell 2 5 7 1,growx,aligny top");
+		Comercial.add(txtDireccionCliente, "cell 2 5 7 1,growx,aligny top");
 		Comercial.add(lblNewLabel_6, "cell 0 6,alignx left,aligny center");
-		Comercial.add(textField_5, "cell 2 6 7 1,growx,aligny top");
+		Comercial.add(txtPoblacionCliente, "cell 2 6 7 1,growx,aligny top");
 		Comercial.add(lblNewLabel_7, "cell 0 7,alignx left,aligny center");
-		Comercial.add(textField_6, "cell 2 7 7 1,growx,aligny top");
+		Comercial.add(txtTlfCliente, "cell 2 7 7 1,growx,aligny top");
 		
 		JLabel lblNewLabel_12 = new JLabel("Fecha Nacimiento");
 		Comercial.add(lblNewLabel_12, "cell 0 8");
 		
-		JDateChooser dateChooser = new JDateChooser();
-		Comercial.add(dateChooser, "cell 2 8 7 1,grow");
+		JDateChooser dateNacimientoCliente = new JDateChooser();
+		Comercial.add(dateNacimientoCliente, "cell 2 8 7 1,grow");
 		
 		JLabel lblNewLabel_13 = new JLabel("E-mail");
 		Comercial.add(lblNewLabel_13, "cell 0 9");
 		
-		textField_7 = new JTextField();
-		Comercial.add(textField_7, "cell 2 9 7 1,growx");
-		textField_7.setColumns(10);
+		txtEmailCliente = new JTextField();
+		Comercial.add(txtEmailCliente, "cell 2 9 7 1,growx");
+		txtEmailCliente.setColumns(10);
 		
 		JButton btnNewButton_5 = new JButton("Anterior");
 		Comercial.add(btnNewButton_5, "cell 0 10,alignx left,aligny top");

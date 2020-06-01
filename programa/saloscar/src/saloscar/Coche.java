@@ -36,14 +36,17 @@ import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
+import java.awt.SystemColor;
 
 public class Coche extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField txtColor;
+	private JTextField txtPuertas;
 	private JTable table;
-	private JTextField textField;
+	private JTextField txtMatriculaCoche;
+	private JTextField txtMarca;
+	private JTextField txtModelo;
 
 	/**
 	 * Launch the application.
@@ -65,6 +68,7 @@ public class Coche extends JFrame {
 	 * Create the frame.
 	 */
 	public Coche() {
+		setAutoRequestFocus(false);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 924, 418);
@@ -77,7 +81,7 @@ public class Coche extends JFrame {
 		contentPane.add(Botón, BorderLayout.NORTH);
 		Botón.setLayout(new GridLayout(0, 5, 0, 0));
 		
-		JButton btnNewButton = new JButton("Comerciol");
+		JButton btnNewButton = new JButton("Comercial");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Comercial comercial = new Comercial();
@@ -129,7 +133,7 @@ public class Coche extends JFrame {
 		Botón.add(btnNewButton_4);
 		
 		JPanel Comercial = new JPanel();
-		Comercial.setBackground(Color.LIGHT_GRAY);
+		Comercial.setBackground(SystemColor.control);
 		contentPane.add(Comercial, BorderLayout.WEST);
 		
 		JLabel lblNewLabel = new JLabel("Coche");
@@ -146,36 +150,38 @@ public class Coche extends JFrame {
 		
 		JLabel lblNewLabel_5 = new JLabel("Color");
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
+		txtColor = new JTextField();
+		txtColor.setColumns(10);
 		
 		JLabel lblNewLabel_6 = new JLabel("Numero de puertos");
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
+		txtPuertas = new JTextField();
+		txtPuertas.setColumns(10);
 		Comercial.setLayout(new MigLayout("", "[71px][5px][63px,grow][5px][61px][5px][63px][5px][76.00px][9.00]", "[25px][20px][20px][20px][20px][20px][20px][20px]"));
 		Comercial.add(lblNewLabel, "cell 0 0 9 1,alignx center,aligny top");
 		Comercial.add(lblNewLabel_1, "cell 0 1,alignx left,aligny center");
 		
-		textField = new JTextField();
-		Comercial.add(textField, "cell 2 1 7 1,growx");
-		textField.setColumns(10);
+		txtMatriculaCoche = new JTextField();
+		Comercial.add(txtMatriculaCoche, "cell 2 1 7 1,growx");
+		txtMatriculaCoche.setColumns(10);
 		Comercial.add(lblNewLabel_2, "cell 0 2,alignx left,aligny center");
 		
-		JComboBox comboBox_2 = new JComboBox();
-		Comercial.add(comboBox_2, "cell 2 2 7 1,growx");
+		txtMarca = new JTextField();
+		Comercial.add(txtMarca, "cell 2 2 7 1,growx");
+		txtMarca.setColumns(10);
 		Comercial.add(lblNewLabel_3, "cell 0 3,alignx left,aligny center");
 		
-		JComboBox comboBox_1 = new JComboBox();
-		Comercial.add(comboBox_1, "cell 2 3 7 1,growx");
+		txtModelo = new JTextField();
+		Comercial.add(txtModelo, "cell 2 3 7 1,growx");
+		txtModelo.setColumns(10);
 		Comercial.add(lblNewLabel_4, "cell 0 4,alignx left,aligny center");
 		
-		JDateChooser dateChooser = new JDateChooser();
-		Comercial.add(dateChooser, "cell 2 4 7 1,growx,aligny top");
+		JDateChooser dateMatriculacion = new JDateChooser();
+		Comercial.add(dateMatriculacion, "cell 2 4 7 1,growx,aligny top");
 		Comercial.add(lblNewLabel_5, "cell 0 5,alignx left,aligny center");
-		Comercial.add(textField_4, "cell 2 5 7 1,growx,aligny top");
+		Comercial.add(txtColor, "cell 2 5 7 1,growx,aligny top");
 		Comercial.add(lblNewLabel_6, "cell 0 6,alignx left,aligny center");
-		Comercial.add(textField_5, "cell 2 6 7 1,growx,aligny top");
+		Comercial.add(txtPuertas, "cell 2 6 7 1,growx,aligny top");
 		
 		JButton btnNewButton_5 = new JButton("Anterior");
 		Comercial.add(btnNewButton_5, "cell 0 7,alignx left,aligny top");

@@ -36,10 +36,12 @@ import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
+import java.awt.SystemColor;
 
 public class Alquiler extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField txtMatriculaAlquiler;
 
 	/**
 	 * Launch the application.
@@ -57,10 +59,9 @@ public class Alquiler extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	
 	public Alquiler() {
+		setAutoRequestFocus(false);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 924, 418);
@@ -73,7 +74,7 @@ public class Alquiler extends JFrame {
 		contentPane.add(Botón, BorderLayout.NORTH);
 		Botón.setLayout(new GridLayout(0, 5, 0, 0));
 		
-		JButton btnNewButton = new JButton("Comerciol");
+		JButton btnNewButton = new JButton("Comercial");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Comercial comercial = new Comercial();
@@ -125,7 +126,7 @@ public class Alquiler extends JFrame {
 		Botón.add(btnNewButton_4);
 		
 		JPanel Comercial = new JPanel();
-		Comercial.setBackground(Color.LIGHT_GRAY);
+		Comercial.setBackground(SystemColor.control);
 		contentPane.add(Comercial, BorderLayout.WEST);
 		
 		JLabel lblNewLabel = new JLabel("A\u00F1adir reserva alquiler");
@@ -136,27 +137,28 @@ public class Alquiler extends JFrame {
 		
 		JLabel lblNewLabel_2 = new JLabel("Matr\u00EDcula");
 		
-		JLabel lblNewLabel_3 = new JLabel("Fecha alquilaer");
+		JLabel lblNewLabel_3 = new JLabel("Fecha Comienzo");
 		
-		JLabel lblNewLabel_4 = new JLabel("Fecha entrega");
+		JLabel lblNewLabel_4 = new JLabel("Fecha Entrega");
 		Comercial.setLayout(new MigLayout("", "[71px][5px][63px,grow][5px][61px][5px][63px][5px][76.00px][9.00]", "[25px][20px][20px][20px][20px][20px]"));
 		Comercial.add(lblNewLabel, "cell 0 0 9 1,alignx center,aligny top");
 		Comercial.add(lblNewLabel_1, "cell 0 1,alignx left,aligny center");
 		
-		JComboBox comboBox_2 = new JComboBox();
-		Comercial.add(comboBox_2, "cell 2 1 7 1,growx");
+		JComboBox comboCliente = new JComboBox();
+		Comercial.add(comboCliente, "cell 2 1 7 1,growx");
 		Comercial.add(lblNewLabel_2, "cell 0 2,alignx left,aligny center");
 		
-		JComboBox comboBox_1 = new JComboBox();
-		Comercial.add(comboBox_1, "cell 2 2 7 1,growx");
+		txtMatriculaAlquiler = new JTextField();
+		Comercial.add(txtMatriculaAlquiler, "cell 2 2 7 1,growx");
+		txtMatriculaAlquiler.setColumns(10);
 		Comercial.add(lblNewLabel_3, "cell 0 3,alignx left,aligny center");
 		
-		JDateChooser dateChooser = new JDateChooser();
-		Comercial.add(dateChooser, "cell 2 3 7 1,growx,aligny top");
+		JDateChooser dateComienzo = new JDateChooser();
+		Comercial.add(dateComienzo, "cell 2 3 7 1,growx,aligny top");
 		Comercial.add(lblNewLabel_4, "cell 0 4,alignx left,aligny center");
 		
-		JDateChooser dateChooser_1 = new JDateChooser();
-		Comercial.add(dateChooser_1, "cell 2 4 7 1,growx,aligny top");
+		JDateChooser dateEntrega = new JDateChooser();
+		Comercial.add(dateEntrega, "cell 2 4 7 1,growx,aligny top");
 		
 		JButton btnNewButton_5 = new JButton("Anterior");
 		Comercial.add(btnNewButton_5, "cell 0 5,alignx left,aligny top");
