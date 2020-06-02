@@ -50,7 +50,7 @@ public class Main extends JFrame {
 	public Main() {
 		setResizable(false);
 		setTitle("Clientes Saloscar");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 519, 255);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -91,6 +91,7 @@ public class Main extends JFrame {
 					if (rs.next()) {
 						JOptionPane.showMessageDialog(Main.this, "Bienvenido a Saloscar, "+rs.getString("nombre")+" "+rs.getString("apellido1")+" "+rs.getString("apellido2"));
 						principa1.setVisible(true);
+						dispose();
 					}else {
 						JOptionPane.showMessageDialog(null, "Error usuario y contraseña","Error",JOptionPane.ERROR_MESSAGE);
 					}
