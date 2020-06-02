@@ -23,6 +23,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JCheckBox;
+import com.toedter.calendar.JCalendar;
 
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
@@ -52,6 +53,8 @@ public class Principal extends JFrame {
 	private JTable table_3;
 	private JTextField Coche_marca;
 	private JTextField Coche_modelo;
+	private JTextField Alquiler_matricula;
+	private JTextField Taller_matricula;
 
 	/**
 	 * Launch the application.
@@ -415,7 +418,7 @@ public class Principal extends JFrame {
 		
 		JPanel Alquiler = new JPanel();
 		tabbedPane.addTab("Alquiler", new ImageIcon(Principal.class.getResource("/imagenes/iconmonstr-book-5-32.png")), Alquiler, null);
-		Alquiler.setLayout(new MigLayout("", "[100px][100px,grow][100px][100px][100px][100px][100px][100px][100px][100px]", "[20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n]"));
+		Alquiler.setLayout(new MigLayout("", "[100px][100px,grow][100px][100px][100px][100px,grow][100px][100px][100px][100px]", "[20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n]"));
 		
 		JLabel lblNewLabel_15 = new JLabel("A\u00F1adir reserva alquiler");
 		lblNewLabel_15.setHorizontalAlignment(SwingConstants.CENTER);
@@ -434,11 +437,15 @@ public class Principal extends JFrame {
 		JComboBox Alquiler_cliente = new JComboBox();
 		Alquiler.add(Alquiler_cliente, "cell 1 1 4 1,growx");
 		
+		JCalendar calendar = new JCalendar();
+		Alquiler.add(calendar, "cell 5 1 5 11,grow");
+		
 		JLabel lblNewLabel_2_3 = new JLabel("Matr\u00EDcula");
 		Alquiler.add(lblNewLabel_2_3, "cell 0 2,alignx left");
 		
-		JComboBox Alquiler_matricula = new JComboBox();
+		Alquiler_matricula = new JTextField();
 		Alquiler.add(Alquiler_matricula, "cell 1 2 4 1,growx");
+		Alquiler_matricula.setColumns(10);
 		
 		JLabel lblNewLabel_3_3 = new JLabel("Fecha alquilaer");
 		Alquiler.add(lblNewLabel_3_3, "cell 0 3,alignx left");
@@ -500,8 +507,9 @@ public class Principal extends JFrame {
 		JLabel lblNewLabel_2_4 = new JLabel("Matr\u00EDcula");
 		Taller.add(lblNewLabel_2_4, "cell 0 2,alignx left");
 		
-		JComboBox Taller_matricula = new JComboBox();
+		Taller_matricula = new JTextField();
 		Taller.add(Taller_matricula, "cell 1 2 4 1,growx");
+		Taller_matricula.setColumns(10);
 		
 		JLabel lblNewLabel_10_3 = new JLabel("Consultas Taller");
 		Taller.add(lblNewLabel_10_3, "cell 5 2 2 1,alignx right");
@@ -550,10 +558,10 @@ public class Principal extends JFrame {
 		JCheckBox Taller_pintura = new JCheckBox("Pintura");
 		Taller.add(Taller_pintura, "cell 0 8");
 		
-		JCheckBox Taller_bujos = new JCheckBox("Bujios");
+		JCheckBox Taller_bujos = new JCheckBox("Buj\u00EDos");
 		Taller.add(Taller_bujos, "cell 0 9");
 		
-		JCheckBox Taller_filrros = new JCheckBox("Filrros");
+		JCheckBox Taller_filrros = new JCheckBox("Filtros");
 		Taller.add(Taller_filrros, "cell 0 10");
 		
 		JButton Taller_anterior = new JButton("Anterior");
