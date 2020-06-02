@@ -48,9 +48,9 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setTitle("Clientes Saloscar");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 519, 255);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -78,7 +78,7 @@ public class Main extends JFrame {
 				
 				
 				String password = new String(contrasenas); 
-				Principal principa1 = new Principal();
+				
 				
 				//Conectar sql
 				Conexion cn = new Conexion();
@@ -90,6 +90,7 @@ public class Main extends JFrame {
 					
 					if (rs.next()) {
 						JOptionPane.showMessageDialog(Main.this, "Bienvenido a Saloscar, "+rs.getString("nombre")+" "+rs.getString("apellido1")+" "+rs.getString("apellido2"));
+						Principal principa1 = new Principal();
 						principa1.setVisible(true);
 					}else {
 						JOptionPane.showMessageDialog(null, "Error usuario y contraseña","Error",JOptionPane.ERROR_MESSAGE);
@@ -108,6 +109,19 @@ public class Main extends JFrame {
 		});
 		
 		JButton btnNewButton_1 = new JButton("Cancelar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				usuario.setText("");
+				contrasena.setText("");
+			}
+		});
+		
+		JButton btnNewButton_2 = new JButton("Salir");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -115,20 +129,23 @@ public class Main extends JFrame {
 					.addContainerGap()
 					.addComponent(lblNewLabel)
 					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addComponent(lblNewLabel_1)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(usuario, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addComponent(lblNewLabel_2)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(contrasena)))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblNewLabel_1)
+							.addComponent(btnNewButton)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(usuario, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(btnNewButton)
-								.addComponent(lblNewLabel_2))
+							.addComponent(btnNewButton_1)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(contrasena)
-								.addComponent(btnNewButton_1))))
-					.addGap(12))
+							.addComponent(btnNewButton_2, GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)))
+					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -143,17 +160,17 @@ public class Main extends JFrame {
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblNewLabel_2)
 								.addComponent(contrasena, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(36)
+							.addGap(34)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(btnNewButton)
-								.addComponent(btnNewButton_1)))
+								.addComponent(btnNewButton_1)
+								.addComponent(btnNewButton_2)))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(19)
 							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(35, Short.MAX_VALUE))
+					.addContainerGap(24, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	
 	}
-
 }

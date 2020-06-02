@@ -10,6 +10,8 @@ import javax.swing.BoxLayout;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.SwingConstants;
@@ -24,6 +26,10 @@ import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JCheckBox;
 import com.toedter.calendar.JCalendar;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
@@ -76,8 +82,17 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				int Answer = JOptionPane.showConfirmDialog(null, "¿Estás segura de que quieres salir?", "Salir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+	            if (Answer == JOptionPane.YES_OPTION) {
+	                System.exit(0);
+	            }
+			}
+		});
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 900, 590);
 		contentPane = new JPanel();
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -195,6 +210,15 @@ public class Principal extends JFrame {
 		Comercial.add(Comercial_seguente, "cell 4 12,growx");
 		
 		JButton Comercial_salir = new JButton("Salir");
+		Comercial_salir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int Answer = JOptionPane.showConfirmDialog(null, "¿Estás segura de que quieres salir?", "Salir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+	            if (Answer == JOptionPane.YES_OPTION) {
+	                System.exit(0);
+	            }
+				
+			}
+		});
 		Comercial.add(Comercial_salir, "cell 9 12,growx");
 		
 		JPanel Cliente = new JPanel();
@@ -315,6 +339,14 @@ public class Principal extends JFrame {
 		Cliente.add(Cliente_seguente, "cell 4 12,growx");
 		
 		JButton Cliente_salir = new JButton("Salir");
+		Cliente_salir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int Answer = JOptionPane.showConfirmDialog(null, "¿Estás segura de que quieres salir?", "Salir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+	            if (Answer == JOptionPane.YES_OPTION) {
+	                System.exit(0);
+	            }
+			}
+		});
 		Cliente.add(Cliente_salir, "cell 9 12,growx");
 		
 		JPanel Coche = new JPanel();
@@ -414,6 +446,14 @@ public class Principal extends JFrame {
 		Coche.add(Coche_siguente, "cell 4 12,growx");
 		
 		JButton Coche_salir = new JButton("Salir");
+		Coche_salir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int Answer = JOptionPane.showConfirmDialog(null, "¿Estás segura de que quieres salir?", "Salir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+	            if (Answer == JOptionPane.YES_OPTION) {
+	                System.exit(0);
+	            }
+			}
+		});
 		Coche.add(Coche_salir, "cell 9 12,growx");
 		
 		JPanel Alquiler = new JPanel();
@@ -475,6 +515,14 @@ public class Principal extends JFrame {
 		Alquiler.add(Alquiler_siguente, "cell 4 12,growx");
 		
 		JButton Alquiler_salir = new JButton("Salir");
+		Alquiler_salir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int Answer = JOptionPane.showConfirmDialog(null, "¿Estás segura de que quieres salir?", "Salir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+	            if (Answer == JOptionPane.YES_OPTION) {
+	                System.exit(0);
+	            }
+			}
+		});
 		Alquiler.add(Alquiler_salir, "cell 9 12,growx");
 		
 		JPanel Taller = new JPanel();
@@ -558,8 +606,8 @@ public class Principal extends JFrame {
 		JCheckBox Taller_pintura = new JCheckBox("Pintura");
 		Taller.add(Taller_pintura, "cell 0 8");
 		
-		JCheckBox Taller_bujos = new JCheckBox("Buj\u00EDos");
-		Taller.add(Taller_bujos, "cell 0 9");
+		JCheckBox Taller_bujias = new JCheckBox("Buj\u00EDas");
+		Taller.add(Taller_bujias, "cell 0 9");
 		
 		JCheckBox Taller_filrros = new JCheckBox("Filtros");
 		Taller.add(Taller_filrros, "cell 0 10");
@@ -580,6 +628,14 @@ public class Principal extends JFrame {
 		Taller.add(Taller_siguente, "cell 4 12,growx");
 		
 		JButton Taller_salir = new JButton("Salir");
+		Taller_salir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int Answer = JOptionPane.showConfirmDialog(null, "¿Estás segura de que quieres salir?", "Salir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+	            if (Answer == JOptionPane.YES_OPTION) {
+	                System.exit(0);
+	            }
+			}
+		});
 		Taller.add(Taller_salir, "cell 9 12,growx");
 		
 		JPanel panel_6 = new JPanel();
