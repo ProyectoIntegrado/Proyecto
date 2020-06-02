@@ -34,7 +34,7 @@ public class Principal extends JFrame {
 	private JTextField Comercial_dni_nif;
 	private JTextField Comercial_telefono;
 	private JTextField Comercial_email;
-	private JTextField codEmpleado;
+	private JTextField Comercial_cod_empleado;
 	private JTable table;
 	private JTextField Cliente_nombre;
 	private JTextField Cliente_apellido1;
@@ -50,6 +50,8 @@ public class Principal extends JFrame {
 	private JTextField Coche_numero_puertos;
 	private JTable table_2;
 	private JTable table_3;
+	private JTextField Coche_marca;
+	private JTextField Coche_modelo;
 
 	/**
 	 * Launch the application.
@@ -71,7 +73,6 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
-		setAutoRequestFocus(false);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 590);
@@ -171,9 +172,9 @@ public class Principal extends JFrame {
 		JLabel lblNewLabel_7 = new JLabel("Cod_Empleado");
 		Comercial.add(lblNewLabel_7, "cell 0 8,alignx left");
 		
-		codEmpleado = new JTextField();
-		codEmpleado.setColumns(10);
-		Comercial.add(codEmpleado, "cell 1 8 4 1,growx");
+		Comercial_cod_empleado = new JTextField();
+		Comercial_cod_empleado.setColumns(10);
+		Comercial.add(Comercial_cod_empleado, "cell 1 8 4 1,growx");
 		
 		JButton Comercial_anterior = new JButton("Anterior");
 		Comercial.add(Comercial_anterior, "cell 0 12,growx");
@@ -189,6 +190,9 @@ public class Principal extends JFrame {
 		
 		JButton Comercial_seguente = new JButton("Siguiente");
 		Comercial.add(Comercial_seguente, "cell 4 12,growx");
+		
+		JButton Comercial_salir = new JButton("Salir");
+		Comercial.add(Comercial_salir, "cell 9 12,growx");
 		
 		JPanel Cliente = new JPanel();
 		tabbedPane.addTab("Cliente", new ImageIcon(Principal.class.getResource("/imagenes/iconmonstr-id-card-9-32.png")), Cliente, null);
@@ -307,6 +311,9 @@ public class Principal extends JFrame {
 		JButton Cliente_seguente = new JButton("Siguiente");
 		Cliente.add(Cliente_seguente, "cell 4 12,growx");
 		
+		JButton Cliente_salir = new JButton("Salir");
+		Cliente.add(Cliente_salir, "cell 9 12,growx");
+		
 		JPanel Coche = new JPanel();
 		tabbedPane.addTab("Coche", new ImageIcon(Principal.class.getResource("/imagenes/iconmonstr-car-3-32.png")), Coche, null);
 		Coche.setLayout(new MigLayout("", "[100px][100px,grow][100px][100px][100px][100px,grow][100px][100px,grow][100px][100px]", "[30.00px:n,fill][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n]"));
@@ -338,8 +345,9 @@ public class Principal extends JFrame {
 		JLabel lblNewLabel_2_2 = new JLabel("Marca");
 		Coche.add(lblNewLabel_2_2, "cell 0 2,alignx left");
 		
-		JComboBox Coche_marca = new JComboBox();
-		Coche.add(Coche_marca, "cell 1 2 4 1,grow");
+		Coche_marca = new JTextField();
+		Coche.add(Coche_marca, "cell 1 2 4 1,growx");
+		Coche_marca.setColumns(10);
 		
 		JLabel lblNewLabel_10_2 = new JLabel("Consultas coche");
 		Coche.add(lblNewLabel_10_2, "cell 5 2 2 1,alignx right");
@@ -350,8 +358,9 @@ public class Principal extends JFrame {
 		JLabel lblNewLabel_3_2 = new JLabel("Modelo ");
 		Coche.add(lblNewLabel_3_2, "cell 0 3,alignx left");
 		
-		JComboBox Coche_modelo = new JComboBox();
-		Coche.add(Coche_modelo, "cell 1 3 4 1,grow");
+		Coche_modelo = new JTextField();
+		Coche.add(Coche_modelo, "cell 1 3 4 1,growx");
+		Coche_modelo.setColumns(10);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
 		Coche.add(scrollPane_2, "cell 5 3 5 9,grow");
@@ -401,6 +410,9 @@ public class Principal extends JFrame {
 		JButton Coche_siguente = new JButton("Siguiente");
 		Coche.add(Coche_siguente, "cell 4 12,growx");
 		
+		JButton Coche_salir = new JButton("Salir");
+		Coche.add(Coche_salir, "cell 9 12,growx");
+		
 		JPanel Alquiler = new JPanel();
 		tabbedPane.addTab("Alquiler", new ImageIcon(Principal.class.getResource("/imagenes/iconmonstr-book-5-32.png")), Alquiler, null);
 		Alquiler.setLayout(new MigLayout("", "[100px][100px,grow][100px][100px][100px][100px][100px][100px][100px][100px]", "[20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n][20px:n]"));
@@ -428,13 +440,13 @@ public class Principal extends JFrame {
 		JComboBox Alquiler_matricula = new JComboBox();
 		Alquiler.add(Alquiler_matricula, "cell 1 2 4 1,growx");
 		
-		JLabel lblNewLabel_3_3 = new JLabel("Fecha Inicio");
+		JLabel lblNewLabel_3_3 = new JLabel("Fecha alquilaer");
 		Alquiler.add(lblNewLabel_3_3, "cell 0 3,alignx left");
 		
 		JDateChooser Alquiler_fecha_aquilar = new JDateChooser();
 		Alquiler.add(Alquiler_fecha_aquilar, "cell 1 3 4 1,grow");
 		
-		JLabel lblNewLabel_4_3 = new JLabel("Fecha Entrega");
+		JLabel lblNewLabel_4_3 = new JLabel("Fecha entrega");
 		Alquiler.add(lblNewLabel_4_3, "cell 0 4,alignx left");
 		
 		JDateChooser Alquiler_fecha_entrega = new JDateChooser();
@@ -454,6 +466,9 @@ public class Principal extends JFrame {
 		
 		JButton Alquiler_siguente = new JButton("Siguiente");
 		Alquiler.add(Alquiler_siguente, "cell 4 12,growx");
+		
+		JButton Alquiler_salir = new JButton("Salir");
+		Alquiler.add(Alquiler_salir, "cell 9 12,growx");
 		
 		JPanel Taller = new JPanel();
 		tabbedPane.addTab("Taller", new ImageIcon(Principal.class.getResource("/imagenes/iconmonstr-wrench-24-32.png")), Taller, null);
@@ -500,8 +515,8 @@ public class Principal extends JFrame {
 		JDateChooser Taller_entrada = new JDateChooser();
 		Taller.add(Taller_entrada, "cell 1 3 4 1,grow");
 		
-		JScrollPane scrollPaneTaller = new JScrollPane();
-		Taller.add(scrollPaneTaller, "cell 5 3 5 9,grow");
+		JScrollPane scrollPane_3 = new JScrollPane();
+		Taller.add(scrollPane_3, "cell 5 3 5 9,grow");
 		
 		table_3 = new JTable();
 		table_3.setModel(new DefaultTableModel(
@@ -511,7 +526,7 @@ public class Principal extends JFrame {
 				"Cliente", "Marricula", "Fecha entrada", "Fecha salida"
 			}
 		));
-		scrollPaneTaller.setViewportView(table_3);
+		scrollPane_3.setViewportView(table_3);
 		
 		JLabel lblNewLabel_4_4 = new JLabel("Fecha Salida");
 		Taller.add(lblNewLabel_4_4, "cell 0 4");
@@ -529,16 +544,16 @@ public class Principal extends JFrame {
 		JCheckBox Taller_frenos = new JCheckBox("Frenos");
 		Taller.add(Taller_frenos, "cell 0 6");
 		
-		JCheckBox Taller_ruedos = new JCheckBox("Ruedas");
+		JCheckBox Taller_ruedos = new JCheckBox("Ruedos");
 		Taller.add(Taller_ruedos, "cell 0 7");
 		
 		JCheckBox Taller_pintura = new JCheckBox("Pintura");
 		Taller.add(Taller_pintura, "cell 0 8");
 		
-		JCheckBox Taller_bujos = new JCheckBox("Bujias");
+		JCheckBox Taller_bujos = new JCheckBox("Bujios");
 		Taller.add(Taller_bujos, "cell 0 9");
 		
-		JCheckBox Taller_filrros = new JCheckBox("Filtros");
+		JCheckBox Taller_filrros = new JCheckBox("Filrros");
 		Taller.add(Taller_filrros, "cell 0 10");
 		
 		JButton Taller_anterior = new JButton("Anterior");
@@ -555,6 +570,9 @@ public class Principal extends JFrame {
 		
 		JButton Taller_siguente = new JButton("Siguiente");
 		Taller.add(Taller_siguente, "cell 4 12,growx");
+		
+		JButton Taller_salir = new JButton("Salir");
+		Taller.add(Taller_salir, "cell 9 12,growx");
 		
 		JPanel panel_6 = new JPanel();
 		contentPane.add(panel_6, BorderLayout.SOUTH);
