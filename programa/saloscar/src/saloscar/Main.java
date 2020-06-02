@@ -48,7 +48,7 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setResizable(false);
 		setTitle("Clientes Saloscar");
 		setBounds(100, 100, 519, 255);
@@ -92,6 +92,7 @@ public class Main extends JFrame {
 						JOptionPane.showMessageDialog(Main.this, "Bienvenido a Saloscar, "+rs.getString("nombre")+" "+rs.getString("apellido1")+" "+rs.getString("apellido2"));
 						Principal principa1 = new Principal();
 						principa1.setVisible(true);
+						dispose();
 					}else {
 						JOptionPane.showMessageDialog(null, "Error usuario y contraseña","Error",JOptionPane.ERROR_MESSAGE);
 					}
@@ -128,23 +129,25 @@ public class Main extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblNewLabel)
-					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-							.addGroup(gl_contentPane.createSequentialGroup()
-								.addComponent(lblNewLabel_1)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(usuario, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE))
-							.addGroup(gl_contentPane.createSequentialGroup()
-								.addComponent(lblNewLabel_2)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(contrasena)))
 						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(lblNewLabel_1)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(usuario, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(lblNewLabel_2)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(contrasena))))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnNewButton)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnNewButton_1)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnNewButton_2, GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)))
+							.addComponent(btnNewButton_2, GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
@@ -160,7 +163,7 @@ public class Main extends JFrame {
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblNewLabel_2)
 								.addComponent(contrasena, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(34)
+							.addGap(31)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(btnNewButton)
 								.addComponent(btnNewButton_1)
