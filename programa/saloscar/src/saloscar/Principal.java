@@ -80,6 +80,7 @@ public class Principal extends JFrame {
 	private JCheckBox Taller_bujias;
 	private JCheckBox Taller_filrros;
 	
+	int lineaComer = 1;
 
 	/**
 	 * Launch the application.
@@ -366,6 +367,8 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 					try {
 						if(rsEmpleados.previous()){
+							lineaComer--;
+							System.out.println(lineaComer);
 							Comercial c = new Comercial();
 							c.setNombre(rsEmpleados.getString("nombre"));
 							Comercial_nombre.setText(c.getNombre());
@@ -380,6 +383,8 @@ public class Principal extends JFrame {
 							c.setEmail(rsEmpleados.getString("email"));
 							Comercial_email.setText(c.getEmail());
 							Comercial_seguente.setEnabled(true);
+						}else {
+							rsEmpleados.next();
 						}
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
@@ -392,6 +397,29 @@ public class Principal extends JFrame {
 		JButton Comercial_enviar = new JButton("Enviar");
 		Comercial_enviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Conexion cn = new Conexion();
+				Connection miConexion = cn.getCn();
+				PreparedStatement PstEmpleado;
+				PreparedStatement PstEnviarEmpleado;
+				try {
+					PstEmpleado = miConexion.prepareStatement("SELECT * FROM empleado");
+					rsEmpleados = PstEmpleado.executeQuery();
+					rsEmpleados.next();
+					PstEnviarEmpleado = miConexion.prepareStatement("UPDATE empleado SET nombre = ?, apellido1 = ?, apellido2 = ?, dniEmpleado = ?, tlf = ?, email = ? WHERE codEmpleado = ?");
+					PstEnviarEmpleado.setString(1,  Comercial_nombre.getText());
+					PstEnviarEmpleado.setString(2,  Comercial_apellido1.getText());
+					PstEnviarEmpleado.setString(3,  Comercial_apellido2.getText());
+					PstEnviarEmpleado.setString(4,  Comercial_dni_nif.getText());
+					PstEnviarEmpleado.setString(5,  Comercial_telefono.getText());
+					PstEnviarEmpleado.setString(6,  Comercial_email.getText());
+					PstEnviarEmpleado.setInt(7,  lineaComer);
+					PstEnviarEmpleado.executeUpdate();
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		Comercial.add(Comercial_enviar, "cell 1 12,growx");
@@ -426,6 +454,8 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if(rsEmpleados.next()){
+						lineaComer++;
+						System.out.println(lineaComer);
 						Comercial c = new Comercial();
 						c.setNombre(rsEmpleados.getString("nombre"));
 						Comercial_nombre.setText(c.getNombre());
@@ -440,6 +470,8 @@ public class Principal extends JFrame {
 						c.setEmail(rsEmpleados.getString("email"));
 						Comercial_email.setText(c.getEmail());
 						Comercial_seguente.setEnabled(true);
+					}else {
+						rsEmpleados.previous();
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block

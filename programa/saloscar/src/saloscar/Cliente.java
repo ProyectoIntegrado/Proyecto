@@ -2,16 +2,16 @@
 package saloscar;
 
 public class Cliente {
-	String nombre;
-	String apellido1;
-	String apellido2;
-	String dni;
-	String direccion;
-	String poblacion;
-	int telefono;
-	String fechaNac;
-	String email;
-	int id;
+	private String nombre;
+	private String apellido1;
+	private String apellido2;
+	private String dni;
+	private String direccion;
+	private String poblacion;
+	private int telefono;
+	private String fechaNac;
+	private String email;
+	private int id;
 	
 	public Cliente(String nombre, String apellido1, String apellido2, String dni, String direccion, String poblacion, int telefono, String fechaNac, String email, int id) {
 		this.nombre = nombre;

@@ -2,13 +2,13 @@
 package saloscar;
 
 public class Comercial {
-	String nombre;
-	String apellido1;
-	String apellido2;
-	String dni;
-	int telefono;
-	String email;
-	int id;
+	private String nombre;
+	private String apellido1;
+	private String apellido2;
+	private String dni;
+	private int telefono;
+	private String email;
+	private int id;
 	
 	
 	public Comercial() {

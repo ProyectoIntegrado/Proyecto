@@ -2,11 +2,11 @@
 package saloscar;
 
 public class Alquiler {
-	String cliente;
-	String matricula;
-	String fechaAlq;
-	String fechaEnt;
-	int id;
+	private String cliente;
+	private String matricula;
+	private String fechaAlq;
+	private String fechaEnt;
+	private int id;
 	
 	public Alquiler(String cliente, String matricula, String fechaAlq, String fechaEnt, int id) {
 		this.cliente = cliente;

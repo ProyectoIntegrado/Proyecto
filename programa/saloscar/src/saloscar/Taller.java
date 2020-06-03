@@ -2,17 +2,17 @@
 package saloscar;
 
 public class Taller {
-	String cliente;
-	String matricula;
-	String fechaEnt;
-	String fechaSal;
-	boolean aceite;
-	boolean frenos;
-	boolean ruedas;
-	boolean pintura;
-	boolean bujia;
-	boolean filtro;
-	int id;
+	private String cliente;
+	private String matricula;
+	private String fechaEnt;
+	private String fechaSal;
+	private boolean aceite;
+	private boolean frenos;
+	private boolean ruedas;
+	private boolean pintura;
+	private boolean bujia;
+	private boolean filtro;
+	private int id;
 	
 	public Taller(String cliente, String matricula, String fechaEnt, String fechaSal, boolean aceite, boolean frenos,
 			boolean ruedas, boolean pintura, boolean bujia, boolean filtro, int id) {

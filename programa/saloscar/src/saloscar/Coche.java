@@ -2,13 +2,13 @@
 package saloscar;
 
 public class Coche {
-	String matricula;
-	String marca;
-	String modelo;
-	String fechaMat;
-	String color;
-	int numPuertas;
-	int id;
+	private String matricula;
+	private String marca;
+	private String modelo;
+	private String fechaMat;
+	private String color;
+	private int numPuertas;
+	private int id;
 	
 	public Coche(String matricula, String marca, String modelo, String fechaMat, String color, int numPuertas, int id) {
 		this.matricula = matricula;
