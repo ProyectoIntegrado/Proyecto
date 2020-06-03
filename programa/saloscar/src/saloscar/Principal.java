@@ -68,6 +68,17 @@ public class Principal extends JFrame {
 	private ResultSet rsAlquiler;
 	private ResultSet rsTaller;
 	private JButton Comercial_seguente;
+	private JCheckBox Taller_acetie;
+	private JDateChooser Coche_fecha_matriculacion;
+	private JDateChooser Alquiler_fecha_aquilar;
+	private JDateChooser Alquiler_fecha_entrega;
+	private JDateChooser Taller_entrada;
+	private JDateChooser Taller_sailda;
+	private JCheckBox Taller_frenos;
+	private JCheckBox Taller_ruedos;
+	private JCheckBox Taller_pintura;
+	private JCheckBox Taller_bujias;
+	private JCheckBox Taller_filrros;
 	
 
 	/**
@@ -177,8 +188,8 @@ public class Principal extends JFrame {
 						Coche_color.setText(co.getColor());
 						co.setNumPuertas(rsCoche.getInt("puertas"));
 						Coche_numero_puertos.setText(co.getNumPuertas());
-//						co.setFechaMat(rsCoche.getString("fechaMatriculacion"));
-//						Coche_fecha_matriculacion.setText(co.getFechaMat());
+						co.setFechaMat(""+rsCoche.getDate("fechaMatriculacion"));
+						Coche_fecha_matriculacion.setDate(rsCoche.getDate("fechaMatriculacion"));
 						Comercial_seguente.setEnabled(true);
 				}
 				
@@ -191,16 +202,14 @@ public class Principal extends JFrame {
 					PreparedStatement PstAlquiler = miConexion.prepareStatement("SELECT * FROM fechaalquiler, cochealquiler");
 					rsAlquiler = PstAlquiler.executeQuery();
 					
-					if(rsCoche.next()){
+					if(rsAlquiler.next()){
 						Alquiler a = new Alquiler();
 						a.setMatricula(rsAlquiler.getString("matriculaAlquiler"));
 						Alquiler_matricula.setText(a.getMatricula());
-//						a.setCliente(rsAlquiler.getString("cliente"));
-//						Alquiler_cliente.setText(a.getCliente());
-//						a.setFechaSal(rsAlquiler.getString("fechaSalida"));
-//						Alquiler_fecha_aquilar.setText(a.getFechaSal());
-//						a.setFechaEnt(rsAlquiler.getString("FechaEntrada"));
-//						Alquiler_fecha_entrega.setText(a.getFechaEnt());
+						a.setFechaAlq(""+rsAlquiler.getDate("fechaSalida"));
+						Alquiler_fecha_aquilar.setDate(rsAlquiler.getDate("fechaSalida"));
+						a.setFechaEnt(""+rsAlquiler.getDate("fechaEntrada"));
+						Alquiler_fecha_entrega.setDate(rsAlquiler.getDate("fechaEntrada"));
 						Comercial_seguente.setEnabled(true);
 				}
 				
@@ -219,20 +228,34 @@ public class Principal extends JFrame {
 						Taller_matricula.setText(t.getMatricula());
 //						t.setCliente(rsTaller.getString("cliente.nombre"));
 //						Taller_cliente.setText(t.getCliente());
-//						t.setFechaSal(rsTaller.getString("fechaSalida"));
-//						Taller_sailda.setText(t.getFechaSal());
-//						t.setFechaEnt(rsTaller.getString("FechaEntrada"));
-//						Taller_entrada.setText(t.getFechaEnt());
-//						t.setAceite(rsTaller.getString("aceite"));
-//						Taller_acetie.isSelected(t.isAceite());
-//						t.setRuedas(rsTaller.getString("ruedas"));
-//						Taller_ruedos.isSelected(t.isRuedas());
-//						t.setPintura(rsTaller.getString("pintura"));
-//						Taller_Pintura.isSelected(t.isPintura());
-//						t.setBujia(rsTaller.getString("bujias"));
-//						Taller_bujia.isSelected(t.isBujia());
-//						t.setFiltro(rsTaller.getString("filtro"));
-//						Taller_filtro.isSelected(t.isFiltro());
+						t.setFechaSal(""+rsTaller.getDate("fechaSalida"));
+						Taller_sailda.setDate(rsTaller.getDate("fechaSalida"));
+						t.setFechaEnt(""+rsTaller.getDate("fechaEntrada"));
+						Taller_entrada.setDate(rsTaller.getDate("fechaEntrada"));
+						if(rsTaller.getInt("aceite")==1) {
+							t.setAceite(true);
+						}else {t.setAceite(false);}
+						Taller_acetie.setSelected(t.isAceite());
+						if(rsTaller.getInt("ruedas")==1) {
+							t.setRuedas(true);
+						}else {t.setRuedas(false);}
+						Taller_ruedos.setSelected(t.isRuedas());
+						if(rsTaller.getInt("pintura")==1) {
+							t.setPintura(true);
+						}else {t.setPintura(false);}
+						Taller_pintura.setSelected(t.isPintura());
+						if(rsTaller.getInt("frenos")==1) {
+							t.setFrenos(true);
+						}else {t.setFrenos(false);}
+						Taller_frenos.setSelected(t.isFrenos());
+						if(rsTaller.getInt("bujias")==1) {
+							t.setBujia(true);
+						}else {t.setBujia(false);}
+						Taller_bujias.setSelected(t.isBujia());
+						if(rsTaller.getInt("filtro")==1) {
+							t.setFiltro(true);
+						}else {t.setFiltro(false);}
+						Taller_filrros.setSelected(t.isFiltro());
 						Comercial_seguente.setEnabled(true);
 				}
 				
@@ -339,23 +362,85 @@ public class Principal extends JFrame {
 		Comercial.add(Comercial_email, "cell 1 7 4 1,growx");
 		
 		JButton Comercial_anterior = new JButton("Anterior");
+		Comercial_anterior.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+					try {
+						if(rsEmpleados.previous()){
+							Comercial c = new Comercial();
+							c.setNombre(rsEmpleados.getString("nombre"));
+							Comercial_nombre.setText(c.getNombre());
+							c.setApellido1(rsEmpleados.getString("apellido1"));
+							Comercial_apellido1.setText(c.getApellido1());
+							c.setApellido2(rsEmpleados.getString("apellido2"));
+							Comercial_apellido2.setText(c.getApellido2());
+							c.setDni(rsEmpleados.getString("dniEmpleado"));
+							Comercial_dni_nif.setText(c.getDni());
+							c.setTelefono(rsEmpleados.getInt("tlf"));
+							Comercial_telefono.setText(c.getTelefono());
+							c.setEmail(rsEmpleados.getString("email"));
+							Comercial_email.setText(c.getEmail());
+							Comercial_seguente.setEnabled(true);
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			}
+		});
 		Comercial.add(Comercial_anterior, "cell 0 12,growx");
 		
 		JButton Comercial_enviar = new JButton("Enviar");
+		Comercial_enviar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		Comercial.add(Comercial_enviar, "cell 1 12,growx");
 		
 		JButton Comercial_editar = new JButton("Editar");
 		Comercial.add(Comercial_editar, "cell 2 12,growx");
 		
 		JButton Comercial_borrar = new JButton("Borrar");
+		Comercial_borrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Comercial c = new Comercial();
+				c.setNombre("");
+				Comercial_nombre.setText("");
+				c.setApellido1("");
+				Comercial_apellido1.setText("");
+				c.setApellido2("");
+				Comercial_apellido2.setText("");
+				c.setDni("");
+				Comercial_dni_nif.setText("");
+				c.setTelefono(0);
+				Comercial_telefono.setText("");
+				c.setEmail("");
+				Comercial_email.setText("");
+				Comercial_seguente.setEnabled(true);
+				
+			}
+		});
 		Comercial.add(Comercial_borrar, "cell 3 12,growx");
 		
 		Comercial_seguente = new JButton("Siguiente");
 		Comercial_seguente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					rsEmpleados.next();
-					
+					if(rsEmpleados.next()){
+						Comercial c = new Comercial();
+						c.setNombre(rsEmpleados.getString("nombre"));
+						Comercial_nombre.setText(c.getNombre());
+						c.setApellido1(rsEmpleados.getString("apellido1"));
+						Comercial_apellido1.setText(c.getApellido1());
+						c.setApellido2(rsEmpleados.getString("apellido2"));
+						Comercial_apellido2.setText(c.getApellido2());
+						c.setDni(rsEmpleados.getString("dniEmpleado"));
+						Comercial_dni_nif.setText(c.getDni());
+						c.setTelefono(rsEmpleados.getInt("tlf"));
+						Comercial_telefono.setText(c.getTelefono());
+						c.setEmail(rsEmpleados.getString("email"));
+						Comercial_email.setText(c.getEmail());
+						Comercial_seguente.setEnabled(true);
+					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -473,6 +558,35 @@ public class Principal extends JFrame {
 		Cliente.add(Cliente_email, "cell 1 8 4 1,grow");
 		
 		JButton Cliente_anterior = new JButton("Anterior");
+		Cliente_anterior.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if(rsCliente.previous()){
+						Cliente cl = new Cliente();
+						cl.setNombre(rsCliente.getString("nombre"));
+						Cliente_nombre.setText(cl.getNombre());
+						cl.setApellido1(rsCliente.getString("apellido1"));
+						Cliente_apellido1.setText(cl.getApellido1());
+						cl.setApellido2(rsCliente.getString("apellido2"));
+						Cliente_apellido2.setText(cl.getApellido2());
+						cl.setDni(rsCliente.getString("dniCliente"));
+						Cliente_dni_nif.setText(cl.getDni());
+						cl.setTelefono(rsCliente.getInt("tlf"));
+						Cliente_telefono.setText(cl.getTelefono());
+						cl.setEmail(rsCliente.getString("email"));
+						Cliente_email.setText(cl.getEmail());
+						cl.setDireccion(rsCliente.getString("direccion"));
+						Cliente_direccion.setText(cl.getDireccion());
+						cl.setPoblacion(rsCliente.getString("poblacion"));
+						Cliente_poblacion.setText(cl.getPoblacion());
+						Comercial_seguente.setEnabled(true);
+}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		Cliente.add(Cliente_anterior, "cell 0 12,growx");
 		
 		JButton Cliente_enviar = new JButton("Enviar");
@@ -482,13 +596,54 @@ public class Principal extends JFrame {
 		Cliente.add(Cliente_editar, "cell 2 12,growx");
 		
 		JButton Cliente_borrar = new JButton("Borrar");
+		Cliente_borrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Cliente cl = new Cliente();
+				cl.setNombre(null);
+				Cliente_nombre.setText(null);
+				cl.setApellido1(null);
+				Cliente_apellido1.setText(null);
+				cl.setApellido2(null);
+				Cliente_apellido2.setText(null);
+				cl.setDni(null);
+				Cliente_dni_nif.setText(null);
+				cl.setTelefono(0);
+				Cliente_telefono.setText(null);
+				cl.setEmail(null);
+				Cliente_email.setText(null);
+				cl.setDireccion(null);
+				Cliente_direccion.setText(null);
+				cl.setPoblacion(null);
+				Cliente_poblacion.setText(null);
+				Comercial_seguente.setEnabled(true);
+			}
+		});
 		Cliente.add(Cliente_borrar, "cell 3 12,growx");
 		
 		JButton Cliente_seguente = new JButton("Siguiente");
 		Cliente_seguente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					rsEmpleados.next();
+					if(rsCliente.next()){
+						Cliente cl = new Cliente();
+						cl.setNombre(rsCliente.getString("nombre"));
+						Cliente_nombre.setText(cl.getNombre());
+						cl.setApellido1(rsCliente.getString("apellido1"));
+						Cliente_apellido1.setText(cl.getApellido1());
+						cl.setApellido2(rsCliente.getString("apellido2"));
+						Cliente_apellido2.setText(cl.getApellido2());
+						cl.setDni(rsCliente.getString("dniCliente"));
+						Cliente_dni_nif.setText(cl.getDni());
+						cl.setTelefono(rsCliente.getInt("tlf"));
+						Cliente_telefono.setText(cl.getTelefono());
+						cl.setEmail(rsCliente.getString("email"));
+						Cliente_email.setText(cl.getEmail());
+						cl.setDireccion(rsCliente.getString("direccion"));
+						Cliente_direccion.setText(cl.getDireccion());
+						cl.setPoblacion(rsCliente.getString("poblacion"));
+						Cliente_poblacion.setText(cl.getPoblacion());
+						Comercial_seguente.setEnabled(true);
+				}
 					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -573,7 +728,7 @@ public class Principal extends JFrame {
 		JLabel lblNewLabel_4_2 = new JLabel("Fecha Matriculaci\u00F3n");
 		Coche.add(lblNewLabel_4_2, "cell 0 4,alignx left");
 		
-		JDateChooser Coche_fecha_matriculacion = new JDateChooser();
+		Coche_fecha_matriculacion = new JDateChooser();
 		Coche.add(Coche_fecha_matriculacion, "cell 1 4 4 1,grow");
 		
 		JLabel lblNewLabel_5_2 = new JLabel("Color");
@@ -591,6 +746,31 @@ public class Principal extends JFrame {
 		Coche.add(Coche_numero_puertos, "cell 1 6 4 1,grow");
 		
 		JButton Coche_anterior = new JButton("Anterior");
+		Coche_anterior.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if(rsCoche.previous()){
+						Coche co = new Coche();
+						co.setMatricula(rsCoche.getString("matriculaCoche"));
+						Coche_matricula.setText(co.getMatricula());
+						co.setModelo(rsCoche.getString("modelo"));
+						Coche_modelo.setText(co.getModelo());
+						co.setMarca(rsCoche.getString("marca"));
+						Coche_marca.setText(co.getMarca());
+						co.setColor(rsCoche.getString("color"));
+						Coche_color.setText(co.getColor());
+						co.setNumPuertas(rsCoche.getInt("puertas"));
+						Coche_numero_puertos.setText(co.getNumPuertas());
+						co.setFechaMat(""+rsCoche.getDate("fechaMatriculacion"));
+						Coche_fecha_matriculacion.setDate(rsCoche.getDate("fechaMatriculacion"));
+						Comercial_seguente.setEnabled(true);
+}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		Coche.add(Coche_anterior, "cell 0 12,growx");
 		
 		JButton Coche_enviar = new JButton("Enviar");
@@ -600,13 +780,46 @@ public class Principal extends JFrame {
 		Coche.add(Coche_editar, "cell 2 12,growx");
 		
 		JButton Coche_borrar = new JButton("Borrar");
+		Coche_borrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Coche co = new Coche();
+				co.setMatricula("");
+				Coche_matricula.setText("");
+				co.setModelo("");
+				Coche_modelo.setText("");
+				co.setMarca("");
+				Coche_marca.setText("");
+				co.setColor("");
+				Coche_color.setText("");
+				co.setNumPuertas(0);
+				Coche_numero_puertos.setText("");
+				co.setFechaMat("");
+				Coche_fecha_matriculacion.setDate(null);
+				Comercial_seguente.setEnabled(true);
+			}
+		});
 		Coche.add(Coche_borrar, "cell 3 12,growx");
 		
 		JButton Coche_siguente = new JButton("Siguiente");
 		Coche_siguente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					rsCoche.next();
+					if(rsCoche.next()){
+						Coche co = new Coche();
+						co.setMatricula(rsCoche.getString("matriculaCoche"));
+						Coche_matricula.setText(co.getMatricula());
+						co.setModelo(rsCoche.getString("modelo"));
+						Coche_modelo.setText(co.getModelo());
+						co.setMarca(rsCoche.getString("marca"));
+						Coche_marca.setText(co.getMarca());
+						co.setColor(rsCoche.getString("color"));
+						Coche_color.setText(co.getColor());
+						co.setNumPuertas(rsCoche.getInt("puertas"));
+						Coche_numero_puertos.setText(co.getNumPuertas());
+						co.setFechaMat(""+rsCoche.getDate("fechaMatriculacion"));
+						Coche_fecha_matriculacion.setDate(rsCoche.getDate("fechaMatriculacion"));
+						Comercial_seguente.setEnabled(true);
+				}
 					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -661,16 +874,35 @@ public class Principal extends JFrame {
 		JLabel lblNewLabel_3_3 = new JLabel("Fecha alquilaer");
 		Alquiler.add(lblNewLabel_3_3, "cell 0 3,alignx left");
 		
-		JDateChooser Alquiler_fecha_aquilar = new JDateChooser();
+		Alquiler_fecha_aquilar = new JDateChooser();
 		Alquiler.add(Alquiler_fecha_aquilar, "cell 1 3 4 1,grow");
 		
 		JLabel lblNewLabel_4_3 = new JLabel("Fecha entrega");
 		Alquiler.add(lblNewLabel_4_3, "cell 0 4,alignx left");
 		
-		JDateChooser Alquiler_fecha_entrega = new JDateChooser();
+		Alquiler_fecha_entrega = new JDateChooser();
 		Alquiler.add(Alquiler_fecha_entrega, "cell 1 4 4 1,grow");
 		
 		JButton Alquiler_anterior = new JButton("Anterior");
+		Alquiler_anterior.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if(rsAlquiler.previous()){
+						Alquiler a = new Alquiler();
+						a.setMatricula(rsAlquiler.getString("matriculaAlquiler"));
+						Alquiler_matricula.setText(a.getMatricula());
+						a.setFechaAlq(""+rsAlquiler.getDate("fechaSalida"));
+						Alquiler_fecha_aquilar.setDate(rsAlquiler.getDate("fechaSalida"));
+						a.setFechaEnt(""+rsAlquiler.getDate("fechaEntrada"));
+						Alquiler_fecha_entrega.setDate(rsAlquiler.getDate("fechaEntrada"));
+						Comercial_seguente.setEnabled(true);
+}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		Alquiler.add(Alquiler_anterior, "cell 0 12,growx");
 		
 		JButton Alquiler_enviar = new JButton("Enviar");
@@ -680,13 +912,34 @@ public class Principal extends JFrame {
 		Alquiler.add(Alquiler_editar, "cell 2 12,growx");
 		
 		JButton Alquiler_borrar = new JButton("Borrar");
+		Alquiler_borrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Alquiler a = new Alquiler();
+				a.setMatricula(null);
+				Alquiler_matricula.setText(null);
+				a.setFechaAlq(null);
+				Alquiler_fecha_aquilar.setDate(null);
+				a.setFechaEnt(null);
+				Alquiler_fecha_entrega.setDate(null);
+				Comercial_seguente.setEnabled(true);
+			}
+		});
 		Alquiler.add(Alquiler_borrar, "cell 3 12,growx");
 		
 		JButton Alquiler_siguente = new JButton("Siguiente");
 		Alquiler_siguente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					rsAlquiler.next();
+					if(rsAlquiler.next()){
+						Alquiler a = new Alquiler();
+						a.setMatricula(rsAlquiler.getString("matriculaAlquiler"));
+						Alquiler_matricula.setText(a.getMatricula());
+						a.setFechaAlq(""+rsAlquiler.getDate("fechaSalida"));
+						Alquiler_fecha_aquilar.setDate(rsAlquiler.getDate("fechaSalida"));
+						a.setFechaEnt(""+rsAlquiler.getDate("fechaEntrada"));
+						Alquiler_fecha_entrega.setDate(rsAlquiler.getDate("fechaEntrada"));
+						Comercial_seguente.setEnabled(true);
+				}
 					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -750,7 +1003,7 @@ public class Principal extends JFrame {
 		JLabel lblNewLabel_3_4 = new JLabel("Fecha entrada");
 		Taller.add(lblNewLabel_3_4, "cell 0 3");
 		
-		JDateChooser Taller_entrada = new JDateChooser();
+		Taller_entrada = new JDateChooser();
 		Taller.add(Taller_entrada, "cell 1 3 4 1,grow");
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
@@ -769,32 +1022,77 @@ public class Principal extends JFrame {
 		JLabel lblNewLabel_4_4 = new JLabel("Fecha Salida");
 		Taller.add(lblNewLabel_4_4, "cell 0 4");
 		
-		JDateChooser Taller_sailda = new JDateChooser();
+		Taller_sailda = new JDateChooser();
 		Taller.add(Taller_sailda, "cell 1 4 4 1,grow");
 		
-		JCheckBox Taller_acetie = new JCheckBox("Aceite");
+		Taller_acetie = new JCheckBox("Aceite");
 		Taller.add(Taller_acetie, "cell 0 5");
 		
 		JLabel lblNewLabel_17 = new JLabel("");
 		lblNewLabel_17.setIcon(new ImageIcon(Principal.class.getResource("/imagenes/WhatsApp Image 2020-05-20 at 21.43.26.jpeg")));
 		Taller.add(lblNewLabel_17, "cell 1 5 4 6,alignx center,aligny center");
 		
-		JCheckBox Taller_frenos = new JCheckBox("Frenos");
+		Taller_frenos = new JCheckBox("Frenos");
 		Taller.add(Taller_frenos, "cell 0 6");
 		
-		JCheckBox Taller_ruedos = new JCheckBox("Ruedos");
+		Taller_ruedos = new JCheckBox("Ruedos");
 		Taller.add(Taller_ruedos, "cell 0 7");
 		
-		JCheckBox Taller_pintura = new JCheckBox("Pintura");
+		Taller_pintura = new JCheckBox("Pintura");
 		Taller.add(Taller_pintura, "cell 0 8");
 		
-		JCheckBox Taller_bujias = new JCheckBox("Buj\u00EDas");
+		Taller_bujias = new JCheckBox("Buj\u00EDas");
 		Taller.add(Taller_bujias, "cell 0 9");
 		
-		JCheckBox Taller_filrros = new JCheckBox("Filtros");
+		Taller_filrros = new JCheckBox("Filtros");
 		Taller.add(Taller_filrros, "cell 0 10");
 		
 		JButton Taller_anterior = new JButton("Anterior");
+		Taller_anterior.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if(rsTaller.previous()){
+						Taller t = new Taller();
+						t.setMatricula(rsTaller.getString("matriculaReparacion"));
+						Taller_matricula.setText(t.getMatricula());
+//					t.setCliente(rsTaller.getString("cliente.nombre"));
+//					Taller_cliente.setText(t.getCliente());
+						t.setFechaSal(""+rsTaller.getDate("fechaSalida"));
+						Taller_sailda.setDate(rsTaller.getDate("fechaSalida"));
+						t.setFechaEnt(""+rsTaller.getDate("fechaEntrada"));
+						Taller_entrada.setDate(rsTaller.getDate("fechaEntrada"));
+						if(rsTaller.getInt("aceite")==1) {
+							t.setAceite(true);
+						}else {t.setAceite(false);}
+						Taller_acetie.setSelected(t.isAceite());
+						if(rsTaller.getInt("ruedas")==1) {
+							t.setRuedas(true);
+						}else {t.setRuedas(false);}
+						Taller_ruedos.setSelected(t.isRuedas());
+						if(rsTaller.getInt("pintura")==1) {
+							t.setPintura(true);
+						}else {t.setPintura(false);}
+						Taller_pintura.setSelected(t.isPintura());
+						if(rsTaller.getInt("frenos")==1) {
+							t.setFrenos(true);
+						}else {t.setFrenos(false);}
+						Taller_frenos.setSelected(t.isFrenos());
+						if(rsTaller.getInt("bujias")==1) {
+							t.setBujia(true);
+						}else {t.setBujia(false);}
+						Taller_bujias.setSelected(t.isBujia());
+						if(rsTaller.getInt("filtro")==1) {
+							t.setFiltro(true);
+						}else {t.setFiltro(false);}
+						Taller_filrros.setSelected(t.isFiltro());
+						Comercial_seguente.setEnabled(true);
+}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		Taller.add(Taller_anterior, "cell 0 12,growx");
 		
 		JButton taller_enviar = new JButton("Enviar");
@@ -804,13 +1102,67 @@ public class Principal extends JFrame {
 		Taller.add(Taller_editar, "cell 2 12,growx");
 		
 		JButton Taller_borrar = new JButton("Borrar");
+		Taller_borrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					Taller t = new Taller();
+					t.setMatricula(null);
+					Taller_matricula.setText(null);
+//					t.setCliente(null);
+//					Taller_cliente.setText(null);
+					t.setFechaSal(null);
+					Taller_sailda.setDate(null);
+					t.setFechaEnt(null);
+					Taller_entrada.setDate(null);
+					Taller_acetie.setSelected(false);
+					Taller_ruedos.setSelected(false);
+					Taller_pintura.setSelected(false);
+					Taller_frenos.setSelected(false);
+					Taller_bujias.setSelected(false);
+					Taller_filrros.setSelected(false);
+					Comercial_seguente.setEnabled(true);
+		}});
 		Taller.add(Taller_borrar, "cell 3 12,growx");
 		
 		JButton Taller_siguente = new JButton("Siguiente");
 		Taller_siguente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					rsTaller.next();
+					if(rsTaller.next()){
+						Taller t = new Taller();
+						t.setMatricula(rsTaller.getString("matriculaReparacion"));
+						Taller_matricula.setText(t.getMatricula());
+//						t.setCliente(rsTaller.getString("cliente.nombre"));
+//						Taller_cliente.setText(t.getCliente());
+						t.setFechaSal(""+rsTaller.getDate("fechaSalida"));
+						Taller_sailda.setDate(rsTaller.getDate("fechaSalida"));
+						t.setFechaEnt(""+rsTaller.getDate("fechaEntrada"));
+						Taller_entrada.setDate(rsTaller.getDate("fechaEntrada"));
+						if(rsTaller.getInt("aceite")==1) {
+							t.setAceite(true);
+						}else {t.setAceite(false);}
+						Taller_acetie.setSelected(t.isAceite());
+						if(rsTaller.getInt("ruedas")==1) {
+							t.setRuedas(true);
+						}else {t.setRuedas(false);}
+						Taller_ruedos.setSelected(t.isRuedas());
+						if(rsTaller.getInt("pintura")==1) {
+							t.setPintura(true);
+						}else {t.setPintura(false);}
+						Taller_pintura.setSelected(t.isPintura());
+						if(rsTaller.getInt("frenos")==1) {
+							t.setFrenos(true);
+						}else {t.setFrenos(false);}
+						Taller_frenos.setSelected(t.isFrenos());
+						if(rsTaller.getInt("bujias")==1) {
+							t.setBujia(true);
+						}else {t.setBujia(false);}
+						Taller_bujias.setSelected(t.isBujia());
+						if(rsTaller.getInt("filtro")==1) {
+							t.setFiltro(true);
+						}else {t.setFiltro(false);}
+						Taller_filrros.setSelected(t.isFiltro());
+						Comercial_seguente.setEnabled(true);
+				}
 					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
