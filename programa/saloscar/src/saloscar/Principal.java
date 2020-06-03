@@ -858,15 +858,15 @@ public class Principal extends JFrame {
 					PstCoche = miConexion.prepareStatement("SELECT * FROM empleado");
 					rsEmpleados = PstCoche.executeQuery();
 					rsEmpleados.next();
-//, fechaMatriculacion = ?
-					PstEnviarCoche = miConexion.prepareStatement("UPDATE cocheventa SET matriculaCoche = ?, modelo = ?, marca = ?, color = ?, puertas = ? WHERE codCliente = ?");
+
+					PstEnviarCoche = miConexion.prepareStatement("UPDATE cocheventa SET matriculaCoche = ?, modelo = ?, marca = ?, color = ?, puertas = ?, fechaMatriculacion = ? WHERE codCliente = ?");
 					PstEnviarCoche.setString(1,  Coche_matricula.getText());
 					PstEnviarCoche.setString(2,  Coche_modelo.getText());
 					PstEnviarCoche.setString(3,  Coche_marca.getText());
 					PstEnviarCoche.setString(4,  Coche_color.getText());
 					PstEnviarCoche.setString(5,  Coche_numero_puertos.getText());
-//TODO					PstEnviarCoche.setString(6,  ""+Coche_fecha_matriculacion.getDate());
-					PstEnviarCoche.setInt(6,  lineaCoche);
+					PstEnviarCoche.setString(6,  ""+Coche_fecha_matriculacion.getDate());
+					PstEnviarCoche.setInt(7,  lineaCoche);
 					PstEnviarCoche.executeUpdate();
 					
 				} catch (SQLException e1) {
