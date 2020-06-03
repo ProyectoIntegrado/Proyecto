@@ -32,6 +32,8 @@ import java.sql.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.AncestorEvent;
 
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
@@ -106,7 +108,7 @@ public class Principal extends JFrame {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Principal() {
 		setTitle("Saloscar");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/imagenes/unnamed.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/imagenes/iconmonstr-car-3-32.png")));
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -1146,6 +1148,14 @@ public class Principal extends JFrame {
 		Taller.add(Taller_entrada, "cell 1 3 4 1,grow");
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
+		scrollPane_3.addAncestorListener(new AncestorListener() {
+			public void ancestorAdded(AncestorEvent arg0) {
+			}
+			public void ancestorMoved(AncestorEvent arg0) {
+			}
+			public void ancestorRemoved(AncestorEvent arg0) {
+			}
+		});
 		Taller.add(scrollPane_3, "cell 5 3 5 9,grow");
 		
 		table_3 = new JTable();
@@ -1153,7 +1163,7 @@ public class Principal extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Cliente", "Marricula", "Fecha entrada", "Fecha salida"
+				"Cliente", "Matricula", "Fecha entrada", "Fecha salida"
 			}
 		));
 		scrollPane_3.setViewportView(table_3);
