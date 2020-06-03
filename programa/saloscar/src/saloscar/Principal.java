@@ -81,6 +81,8 @@ public class Principal extends JFrame {
 	private JCheckBox Taller_filrros;
 	
 	int lineaComer = 1;
+	int lineaCliente = 1;
+	int lineaCoche = 1;
 
 	/**
 	 * Launch the application.
@@ -594,6 +596,7 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if(rsCliente.previous()){
+						lineaComer--;
 						Cliente cl = new Cliente();
 						cl.setNombre(rsCliente.getString("nombre"));
 						Cliente_nombre.setText(cl.getNombre());
@@ -613,6 +616,9 @@ public class Principal extends JFrame {
 						Cliente_poblacion.setText(cl.getPoblacion());
 						Comercial_seguente.setEnabled(true);
 }
+					else {
+						rsCliente.next();
+					}
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -622,6 +628,34 @@ public class Principal extends JFrame {
 		Cliente.add(Cliente_anterior, "cell 0 12,growx");
 		
 		JButton Cliente_enviar = new JButton("Enviar");
+		Cliente_enviar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Conexion cn = new Conexion();
+				Connection miConexion = cn.getCn();
+				PreparedStatement PstCliente;
+				PreparedStatement PstEnviarCliente;
+				try {
+					PstCliente = miConexion.prepareStatement("SELECT * FROM empleado");
+					rsEmpleados = PstCliente.executeQuery();
+					rsEmpleados.next();
+					PstEnviarCliente = miConexion.prepareStatement("UPDATE cliente SET nombre = ?, apellido1 = ?, apellido2 = ?, dniCliente = ?, tlf = ?, email = ?, poblacion = ?, direccion = ? WHERE codCliente = ?");
+					PstEnviarCliente.setString(1,  Cliente_nombre.getText());
+					PstEnviarCliente.setString(2,  Cliente_apellido1.getText());
+					PstEnviarCliente.setString(3,  Cliente_apellido2.getText());
+					PstEnviarCliente.setString(4,  Cliente_dni_nif.getText());
+					PstEnviarCliente.setString(5,  Cliente_telefono.getText());
+					PstEnviarCliente.setString(6,  Cliente_email.getText());
+					PstEnviarCliente.setString(7,  Cliente_poblacion.getText());
+					PstEnviarCliente.setString(8,  Cliente_direccion.getText());
+					PstEnviarCliente.setInt(9,  lineaCliente);
+					PstEnviarCliente.executeUpdate();
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		Cliente.add(Cliente_enviar, "cell 1 12,growx");
 		
 		JButton Cliente_editar = new JButton("Editar");
@@ -657,6 +691,7 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if(rsCliente.next()){
+						lineaComer++;
 						Cliente cl = new Cliente();
 						cl.setNombre(rsCliente.getString("nombre"));
 						Cliente_nombre.setText(cl.getNombre());
@@ -676,6 +711,9 @@ public class Principal extends JFrame {
 						Cliente_poblacion.setText(cl.getPoblacion());
 						Comercial_seguente.setEnabled(true);
 				}
+					else {
+						rsCliente.previous();
+					}
 					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -782,6 +820,7 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if(rsCoche.previous()){
+						lineaCoche--;
 						Coche co = new Coche();
 						co.setMatricula(rsCoche.getString("matriculaCoche"));
 						Coche_matricula.setText(co.getMatricula());
@@ -797,6 +836,9 @@ public class Principal extends JFrame {
 						Coche_fecha_matriculacion.setDate(rsCoche.getDate("fechaMatriculacion"));
 						Comercial_seguente.setEnabled(true);
 }
+					else {
+						rsCoche.next();
+					}
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -806,6 +848,33 @@ public class Principal extends JFrame {
 		Coche.add(Coche_anterior, "cell 0 12,growx");
 		
 		JButton Coche_enviar = new JButton("Enviar");
+		Coche_enviar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Conexion cn = new Conexion();
+				Connection miConexion = cn.getCn();
+				PreparedStatement PstCoche;
+				PreparedStatement PstEnviarCoche;
+				try {
+					PstCoche = miConexion.prepareStatement("SELECT * FROM empleado");
+					rsEmpleados = PstCoche.executeQuery();
+					rsEmpleados.next();
+//, fechaMatriculacion = ?
+					PstEnviarCoche = miConexion.prepareStatement("UPDATE cocheventa SET matriculaCoche = ?, modelo = ?, marca = ?, color = ?, puertas = ? WHERE codCliente = ?");
+					PstEnviarCoche.setString(1,  Coche_matricula.getText());
+					PstEnviarCoche.setString(2,  Coche_modelo.getText());
+					PstEnviarCoche.setString(3,  Coche_marca.getText());
+					PstEnviarCoche.setString(4,  Coche_color.getText());
+					PstEnviarCoche.setString(5,  Coche_numero_puertos.getText());
+//TODO					PstEnviarCoche.setString(6,  ""+Coche_fecha_matriculacion.getDate());
+					PstEnviarCoche.setInt(6,  lineaCoche);
+					PstEnviarCoche.executeUpdate();
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		Coche.add(Coche_enviar, "cell 1 12,growx");
 		
 		JButton Coche_editar = new JButton("Editar");
@@ -837,6 +906,7 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if(rsCoche.next()){
+						lineaCoche++;
 						Coche co = new Coche();
 						co.setMatricula(rsCoche.getString("matriculaCoche"));
 						Coche_matricula.setText(co.getMatricula());
@@ -851,6 +921,8 @@ public class Principal extends JFrame {
 						co.setFechaMat(""+rsCoche.getDate("fechaMatriculacion"));
 						Coche_fecha_matriculacion.setDate(rsCoche.getDate("fechaMatriculacion"));
 						Comercial_seguente.setEnabled(true);
+				}else {
+					rsCoche.previous();
 				}
 					
 				} catch (SQLException e1) {
