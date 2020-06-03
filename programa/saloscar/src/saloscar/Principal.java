@@ -103,7 +103,7 @@ public class Principal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Principal() {
 		setTitle("Saloscar");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/imagenes/unnamed.png")));
@@ -1105,6 +1105,21 @@ public class Principal extends JFrame {
 		
 		JComboBox Taller_cliente = new JComboBox();
 		Taller.add(Taller_cliente, "cell 1 1 4 1,growx");
+		
+		try {
+			Statement s = miConexion.createStatement();
+			ResultSet rs = s.executeQuery ("SELECT * FROM cliente");
+			while (rs.next())
+			{
+
+				Taller_cliente.addItem(rs.getString("nombre")+" "+rs.getString("apellido1")+" "+rs.getString("apellido2")  );
+			}
+			
+		} catch (SQLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
 		
 		JLabel lblNewLabel_9_3 = new JLabel("Consultas sobre Taller");
 		lblNewLabel_9_3.setHorizontalAlignment(SwingConstants.CENTER);
