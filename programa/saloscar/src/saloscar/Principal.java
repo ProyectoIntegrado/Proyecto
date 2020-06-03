@@ -103,6 +103,7 @@ public class Principal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("unchecked")
 	public Principal() {
 		setTitle("Saloscar");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/imagenes/unnamed.png")));
@@ -808,7 +809,7 @@ public class Principal extends JFrame {
 		Coche_color.setColumns(10);
 		Coche.add(Coche_color, "cell 1 5 4 1,grow");
 		
-		JLabel lblNewLabel_6_2 = new JLabel("Numero de puertos");
+		JLabel lblNewLabel_6_2 = new JLabel("Numero de puertas");
 		Coche.add(lblNewLabel_6_2, "cell 0 6,alignx left");
 		
 		Coche_numero_puertos = new JTextField();
@@ -964,6 +965,25 @@ public class Principal extends JFrame {
 		
 		JComboBox Alquiler_cliente = new JComboBox();
 		Alquiler.add(Alquiler_cliente, "cell 1 1 4 1,growx");
+		Conexion cn = new Conexion();
+		Connection miConexion = cn.getCn();
+		
+		try {
+			Statement s = miConexion.createStatement();
+			ResultSet rs = s.executeQuery ("SELECT * FROM cliente");
+			while (rs.next())
+			{
+
+				Alquiler_cliente.addItem(rs.getString("nombre")+" "+rs.getString("apellido1")+" "+rs.getString("apellido2")  );
+			}
+			
+		} catch (SQLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
+		
+		
 		
 		JCalendar calendar = new JCalendar();
 		Alquiler.add(calendar, "cell 5 1 5 11,grow");
@@ -975,7 +995,7 @@ public class Principal extends JFrame {
 		Alquiler.add(Alquiler_matricula, "cell 1 2 4 1,growx");
 		Alquiler_matricula.setColumns(10);
 		
-		JLabel lblNewLabel_3_3 = new JLabel("Fecha alquilaer");
+		JLabel lblNewLabel_3_3 = new JLabel("Fecha alquiler");
 		Alquiler.add(lblNewLabel_3_3, "cell 0 3,alignx left");
 		
 		Alquiler_fecha_aquilar = new JDateChooser();
