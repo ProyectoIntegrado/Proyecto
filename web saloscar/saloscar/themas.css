@@ -23,7 +23,9 @@ body {
     width: 1026px;
     margin-bottom: 20px;
     overflow-y: auto;
+    padding: absolute;
     visibility: inherit;
+    text-align: center;
 }
 .bienvenido {
     color: hsla(359,81%,44%,1.00);
@@ -34,7 +36,7 @@ body {
 }
 .equipo {
     width: 291px;
-    background-color: hsla(359,100%,50%,1.00);
+    background-color: hsla(359,78%,44%,1.00);
     color: hsla(0,0%,100%,1.00);
     border-radius: 12px;
     margin-left: 20px;
@@ -109,7 +111,7 @@ li a:hover {
   background-color: #111111;
 }
 .contacto {
-    background-color: hsla(2,94%,49%,1.00);
+    background-color: hsla(359,78%,44%,1.00);
     width: 460px;
     float: left;
     border-radius: 12px;
@@ -120,7 +122,6 @@ li a:hover {
     padding-bottom: 5px;
     padding-left: 12px;
     text-align: center;
-    height: 559px;
 }
 .contacto p {
     color: hsla(0,0%,100%,1.00);
@@ -141,7 +142,7 @@ li a:hover {
 }
 form .form input {
     background-color: hsla(0,0%,58%,1.00);
-    width: 96%;
+    width: 98%;
     color: hsla(0,0%,0%,1.00);
     font-size: 19px;
     border-radius: 12px;
@@ -153,7 +154,7 @@ form .form input {
     margin-top: 4px;
 }
 form .form #mensaje {
-    width: 96%;
+    width: 98%;
     background-color: hsla(0,0%,58%,1.00);
     border-radius: 12px;
     border-width: 0px;
@@ -175,4 +176,10 @@ form .form #mensaje {
     padding-bottom: 12px;
     padding-left: 12px;
     width: 147px;
+}
+iframe {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-bottom: 15px;
 }

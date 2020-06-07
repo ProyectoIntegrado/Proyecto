@@ -52,22 +52,34 @@
   </section>
   <section class="fondo">
 	  <h1 class="bienvenido" id="video">VIDEO</h1>
-	  
+	  <iframe width="990" height="560" src="https://www.youtube-nocookie.com/embed/jc1qFErLRLM?cc_load_policy=1&amp;cc_lang_pref=es" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
   </section>
 	<section class="fondo">
 	  <h1 class="bienvenido" id="contacto">CONTACTO</h1>
 		<article class="contacto">
-			<form method="post" name="contactar" action="contactar.php">
+			<form method="post" name="contactar" action="" enctype="multipart/form-data"> 
 					<p class="form"><label for="nombre">Nombre <span class="required">*</span></label> <input id="nombre" name="nombre" size="35" type="text" value="" /></p>
 					<p class="form"><label for="email">Correo electr&oacute;nico <span class="required">*</span></label> <input id="email" name="email" size="35" type="text" value="" /></p>
 					<p class="form"><label for="sujeto">Sujeto</label> <input id="sujeto" name="sujeto" size="35" type="text" value="" /></p>
 					<p class="form"><label for="mensaje">Mensaje <span class="required">*</span></label><textarea cols="50" id="mensaje" name="mensaje" rows="15"></textarea></p>
-					<button class="enviar">Enviar</button>
+					<button class="enviar" value="enviar">Enviar</button>
 			</form>
+			<?php 
+				$nombre = $_POST['nombre'];
+				$email = $_POST['email'];
+				$sujeto = $_POST['sujeto'];
+				$mensaje = $_POST["mensaje"];
+				$formcontent="From: $nombre \n Message: $mensaje";
+				$recipient = "camilomascarelljorques@gmail.com";
+				$sujeto = "Contact Form";
+				$mailheader = "From: $email \r\n";
+				mail($recipient, $sujeto, $formcontent, $mailheader) or die("Error!");
+				
+?>
 		</article>
 		<article class="contacto">
 			<p><span>La información debe ser autorizada</span></p>
-			<p>De forma diaria la autora de la web revisa de forma manual los comentarios que llegan a la web, a Facebook, a LinkedIn y a Twitter. Todos los comentarios están regulados. Los usuarios de la plataforma y moderadores deben comportarse en todo momento con respeto y honestidad. En el caso de la web no se publica ningún comentario sin la previa aprobación de la moderadora. En el caso de las redes sociales, se vigila que no se haga un mal uso de las mismas con comentarios destructivos o insultantes. Cuando sucede, se avisa de forma directa al emisor para que retire el comentario y si no sucede, es eliminado por parte de la moderadora.</p>
+			<p>De forma diaria el autor de la web revisa de forma manual los comentarios que llegan a la web, a Facebook, a LinkedIn y a Twitter. Todos los comentarios están regulados. Los usuarios de la plataforma y moderadores deben comportarse en todo momento con respeto y honestidad. En el caso de la web no se publica ningún comentario sin la previa aprobación del moderador. En el caso de las redes sociales, se vigila que no se haga un mal uso de las mismas con comentarios destructivos o insultantes. Cuando sucede, se avisa de forma directa al emisor para que retire el comentario y si no sucede, es eliminado por parte de la moderadora.</p>
 			<p><span>datos de contacto Sitio Web</span></p>
 			<p>El formulario de contacto y el mail de la publicación está visibles en la página principal. Y las reglas de de la plataforma también son fácilmente accesibles desde el pie de la página principal.</p>
 			<p><span>Política de Publicidad</span></p>
