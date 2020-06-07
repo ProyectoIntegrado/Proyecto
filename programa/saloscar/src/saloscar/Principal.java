@@ -1,39 +1,44 @@
 package saloscar;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.BoxLayout;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
 import java.awt.Color;
-import javax.swing.SwingConstants;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import com.toedter.calendar.JDateChooser;
-import javax.swing.JCheckBox;
-import com.toedter.calendar.JCalendar;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Toolkit;
-import javax.swing.event.AncestorListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.swing.BoxLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
+import javax.swing.table.DefaultTableModel;
+
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
+
+import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
@@ -82,9 +87,16 @@ public class Principal extends JFrame {
 	private JCheckBox Taller_bujias;
 	private JCheckBox Taller_filrros;
 	
+	private DefaultTableModel coche_tabla;
+	private DefaultTableModel comercial_tabla;
+	private DefaultTableModel taller_tabla;
+	private DefaultTableModel cliente_tabla;
+	
 	int lineaComer = 1;
 	int lineaCliente = 1;
 	int lineaCoche = 1;
+	private JComboBox Coche_consultas;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
@@ -323,8 +335,70 @@ public class Principal extends JFrame {
 		JLabel lblNewLabel_10 = new JLabel("Consultas comercial");
 		Comercial.add(lblNewLabel_10, "cell 5 3 2 1,alignx right");
 		
+		scrollPane = new JScrollPane();
+		Comercial.add(scrollPane, "cell 5 4 5 8,grow");
+		
+		comercial_tabla = new DefaultTableModel();
+		table = new JTable(comercial_tabla);
+		
+		comercial_tabla.addColumn("Nombre");
+		comercial_tabla.addColumn("Apellidos");
+		comercial_tabla.addColumn("DNI/NIF");
+		comercial_tabla.addColumn("Telefono");
+		comercial_tabla.addColumn("e-mail");
+		
+		scrollPane.setViewportView(table);
+		
 		JComboBox Comercial_consultas = new JComboBox();
+		Comercial_consultas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Comercial c = (Comercial) Comercial_consultas.getSelectedItem();
+				Conexion cn = new Conexion();
+				Connection miConexion = cn.getCn();
+				try {
+					PreparedStatement comercial = miConexion.prepareStatement("SELECT * FROM cliente WHERE codEmpleado = ?");
+					comercial.setInt(1, c.getId());
+					comercial_tabla.setRowCount(0);
+					ResultSet rsmodulos = comercial.executeQuery();
+					Object [] file = new Object[5];
+					while (rsmodulos.next()){
+						file[0] = rsmodulos.getString("nombre");
+						file[1] = rsmodulos.getString("apellido1") +" "+ rsmodulos.getString("apellido2");
+						file[2] = rsmodulos.getString("dniCliente");
+						file[3] = rsmodulos.getString("tlf");
+						file[4] = rsmodulos.getString("email");
+						comercial_tabla.addRow(file);
+					}
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		Comercial.add(Comercial_consultas, "cell 7 3 3 1,growx");
+		Conexion cn = new Conexion();
+		Connection miConexion = cn.getCn();
+		try {
+			Statement st = miConexion.createStatement();
+			ResultSet rsempleado = st.executeQuery("SELECT * FROM empleado");
+			Comercial cl;
+			while(rsempleado.next()) {
+				cl = new Comercial();
+				cl.setId(rsempleado.getInt("codEmpleado"));
+				cl.setDni(rsempleado.getString("dniEmpleado"));
+				cl.setNombre(rsempleado.getString("nombre"));
+				cl.setApellido1(rsempleado.getString("apellido1"));
+				cl.setApellido2(rsempleado.getString("apellido2"));
+				cl.setTelefono(rsempleado.getInt("tlf"));
+				cl.setEmail(rsempleado.getString("email"));
+				
+				Comercial_consultas.addItem(cl);
+			}
+		} catch (SQLException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		}
 		
 		JLabel lblNewLabel_3 = new JLabel("Apellido 2");
 		Comercial.add(lblNewLabel_3, "cell 0 4,alignx left");
@@ -333,18 +407,7 @@ public class Principal extends JFrame {
 		Comercial_apellido2.setColumns(10);
 		Comercial.add(Comercial_apellido2, "cell 1 4 4 1,growx");
 		
-		JScrollPane scrollPane = new JScrollPane();
-		Comercial.add(scrollPane, "cell 5 4 5 8,grow");
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"DNI/NIF", "Nombre", "Apellidos", "Telefono", "E-mail", "Empleado"
-			}
-		));
-		scrollPane.setViewportView(table);
 		
 		JLabel lblNewLabel_4 = new JLabel("DNI/NIF");
 		Comercial.add(lblNewLabel_4, "cell 0 5,alignx left");
@@ -536,8 +599,69 @@ public class Principal extends JFrame {
 		JLabel lblNewLabel_10_1 = new JLabel("Consultas clientes");
 		Cliente.add(lblNewLabel_10_1, "cell 5 2 2 1,alignx right");
 		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		Cliente.add(scrollPane_1, "cell 5 3 5 9,grow");
+		
+		cliente_tabla = new DefaultTableModel();
+		table_1 = new JTable(cliente_tabla);
+		cliente_tabla.addColumn("Nombre");
+		cliente_tabla.addColumn("Apellidos");
+		cliente_tabla.addColumn("DNI/NIF");
+		cliente_tabla.addColumn("Telefono");
+		cliente_tabla.addColumn("e-mail");
+		
+		scrollPane_1.setViewportView(table_1);
+		
 		JComboBox Cliente_consultas = new JComboBox();
+		Cliente_consultas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Cliente c = (Cliente) Cliente_consultas.getSelectedItem();
+				Conexion cn = new Conexion();
+				Connection miConexion = cn.getCn();
+				try {
+					PreparedStatement cliente = miConexion.prepareStatement("SELECT * FROM cliente WHERE codEmpleado = ?");
+					cliente.setInt(1, c.getId());
+					cliente_tabla.setRowCount(0);
+					ResultSet rsmodulos = cliente.executeQuery();
+					Object [] file = new Object[5];
+					while (rsmodulos.next()){
+						file[0] = rsmodulos.getString("nombre");
+						file[1] = rsmodulos.getString("apellido1") +" "+ rsmodulos.getString("apellido2");
+						file[2] = rsmodulos.getString("dniCliente");
+						file[3] = rsmodulos.getString("tlf");
+						file[4] = rsmodulos.getString("email");
+						cliente_tabla.addRow(file);
+					}
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			
+			}
+		});
 		Cliente.add(Cliente_consultas, "cell 7 2 3 1,growx");
+		
+		
+		try {
+			Statement st = miConexion.createStatement();
+			ResultSet rscoche = st.executeQuery("SELECT * FROM cliente");
+			Cliente c;
+			while(rscoche.next()) {
+				c = new Cliente();
+				c.setId(rscoche.getInt("codCliente"));
+				c.setDni(rscoche.getString("dniCliente"));
+				c.setNombre(rscoche.getString("nombre"));
+				c.setApellido1(rscoche.getString("apellido1"));
+				c.setApellido2(rscoche.getString("apellido2"));
+				
+				Cliente_consultas.addItem(c);
+			}
+		} catch (SQLException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		}
+		
 		
 		JLabel lblNewLabel_3_1 = new JLabel("Apellido 2");
 		Cliente.add(lblNewLabel_3_1, "cell 0 3,alignx left");
@@ -546,18 +670,7 @@ public class Principal extends JFrame {
 		Cliente_apellido2.setColumns(10);
 		Cliente.add(Cliente_apellido2, "cell 1 3 4 1,grow");
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		Cliente.add(scrollPane_1, "cell 5 3 5 9,grow");
-		
-		table_1 = new JTable();
-		table_1.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"DNI/NIF", "Nombre", "Apellidos", "Direcci\u00F3n", "Poblaci\u00F3n", "Telefono", "Fecha Nacimiento"
-			}
-		));
-		scrollPane_1.setViewportView(table_1);
+
 		
 		JLabel lblNewLabel_4_1 = new JLabel("DNI/NIF");
 		Cliente.add(lblNewLabel_4_1, "cell 0 4,alignx left");
@@ -753,70 +866,116 @@ public class Principal extends JFrame {
 		lblNewLabel_8_2.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		Coche.add(lblNewLabel_8_2, "cell 5 0 5 1,grow");
 		
-		JLabel lblNewLabel_1_2 = new JLabel("Matr\u00EDcula");
-		Coche.add(lblNewLabel_1_2, "cell 0 1,alignx left");
 		
-		Coche_matricula = new JTextField();
-		Coche_matricula.setColumns(10);
-		Coche.add(Coche_matricula, "cell 1 1 4 1,grow");
+
+		
 		
 		JLabel lblNewLabel_9_2 = new JLabel("Consultas sobre coche");
 		lblNewLabel_9_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_9_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		Coche.add(lblNewLabel_9_2, "cell 5 1 5 1,grow");
 		
-		JLabel lblNewLabel_2_2 = new JLabel("Marca");
-		Coche.add(lblNewLabel_2_2, "cell 0 2,alignx left");
+		JLabel lblNewLabel_1_2 = new JLabel("Matr\u00EDcula");
+		Coche.add(lblNewLabel_1_2, "cell 0 2,alignx left");
 		
-		Coche_marca = new JTextField();
-		Coche.add(Coche_marca, "cell 1 2 4 1,growx");
-		Coche_marca.setColumns(10);
+		Coche_matricula = new JTextField();
+		Coche_matricula.setColumns(10);
+		Coche.add(Coche_matricula, "cell 1 2 4 1,grow");
 		
 		JLabel lblNewLabel_10_2 = new JLabel("Consultas coche");
 		Coche.add(lblNewLabel_10_2, "cell 5 2 2 1,alignx right");
 		
-		JComboBox Coche_consultas = new JComboBox();
-		Coche.add(Coche_consultas, "cell 7 2 3 1,growx");
+		Coche_consultas = new JComboBox();
+		Coche_consultas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Cliente c = (Cliente) Coche_consultas.getSelectedItem();
+				Conexion cn = new Conexion();
+				Connection miConexion = cn.getCn();
+				try {
+					PreparedStatement coche = miConexion.prepareStatement("SELECT * FROM cocheventa WHERE codCliente = ?");
+					coche.setInt(1, c.getId());
+					coche_tabla.setRowCount(0);
+					ResultSet rsmodulos = coche.executeQuery();
+					Object [] file = new Object[6];
+					while (rsmodulos.next()){
+						file[0] = rsmodulos.getString("matriculaCoche");
+						file[1] = rsmodulos.getString("modelo");
+						file[2] = rsmodulos.getString("marca");
+						file[3] = rsmodulos.getString("fechaMatriculacion");
+						file[4] = rsmodulos.getString("color");
+						file[5] = rsmodulos.getInt("puertas");
+						coche_tabla.addRow(file);
+					}
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		
-		JLabel lblNewLabel_3_2 = new JLabel("Modelo ");
-		Coche.add(lblNewLabel_3_2, "cell 0 3,alignx left");
+		JLabel lblNewLabel_2_2 = new JLabel("Marca");
+		Coche.add(lblNewLabel_2_2, "cell 0 3,alignx left");
 		
-		Coche_modelo = new JTextField();
-		Coche.add(Coche_modelo, "cell 1 3 4 1,growx");
-		Coche_modelo.setColumns(10);
+		Coche_marca = new JTextField();
+		Coche.add(Coche_marca, "cell 1 3 4 1,growx");
+		Coche_marca.setColumns(10);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
 		Coche.add(scrollPane_2, "cell 5 3 5 9,grow");
 		
-		table_2 = new JTable();
-		table_2.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Matricula", "Marca", "Modelo", "Fecha matriculacion"
-			}
-		));
+		coche_tabla = new DefaultTableModel();
+		table_2 = new JTable(coche_tabla);
+		coche_tabla.addColumn("Matricula");
+		coche_tabla.addColumn("Marca");
+		coche_tabla.addColumn("Madelo");
+		coche_tabla.addColumn("Fecha");
+		coche_tabla.addColumn("color");
+		coche_tabla.addColumn("Numero de puertas");
+		
 		scrollPane_2.setViewportView(table_2);
 		
+		Coche.add(Coche_consultas, "cell 7 2 3 1,growx");
+
+		
+		try {
+			Statement st = miConexion.createStatement();
+			ResultSet rscoche = st.executeQuery("SELECT * FROM cliente");
+			Cliente c;
+			while(rscoche.next()) {
+				c = new Cliente();
+				c.setId(rscoche.getInt("codCliente"));
+				c.setDni(rscoche.getString("dniCliente"));
+				c.setNombre(rscoche.getString("nombre"));
+				c.setApellido1(rscoche.getString("apellido1"));
+				c.setApellido2(rscoche.getString("apellido2"));
+				
+				Coche_consultas.addItem(c);
+			}
+		} catch (SQLException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		}
+		JLabel lblNewLabel_3_2 = new JLabel("Modelo ");
+		Coche.add(lblNewLabel_3_2, "cell 0 4,alignx left");
+		
+		Coche_modelo = new JTextField();
+		Coche.add(Coche_modelo, "cell 1 4 4 1,growx");
+		Coche_modelo.setColumns(10);
+		
+		
+		
+		
+		
+		
 		JLabel lblNewLabel_4_2 = new JLabel("Fecha Matriculaci\u00F3n");
-		Coche.add(lblNewLabel_4_2, "cell 0 4,alignx left");
+		Coche.add(lblNewLabel_4_2, "cell 0 5,alignx left");
 		
 		Coche_fecha_matriculacion = new JDateChooser();
-		Coche.add(Coche_fecha_matriculacion, "cell 1 4 4 1,grow");
+		Coche.add(Coche_fecha_matriculacion, "cell 1 5 4 1,grow");
 		
 		JLabel lblNewLabel_5_2 = new JLabel("Color");
-		Coche.add(lblNewLabel_5_2, "cell 0 5,alignx left");
-		
-		Coche_color = new JTextField();
-		Coche_color.setColumns(10);
-		Coche.add(Coche_color, "cell 1 5 4 1,grow");
-		
-		JLabel lblNewLabel_6_2 = new JLabel("Numero de puertas");
-		Coche.add(lblNewLabel_6_2, "cell 0 6,alignx left");
-		
-		Coche_numero_puertos = new JTextField();
-		Coche_numero_puertos.setColumns(10);
-		Coche.add(Coche_numero_puertos, "cell 1 6 4 1,grow");
+		Coche.add(lblNewLabel_5_2, "cell 0 6,alignx left");
 		
 		JButton Coche_anterior = new JButton("Anterior");
 		Coche_anterior.addActionListener(new ActionListener() {
@@ -848,6 +1007,17 @@ public class Principal extends JFrame {
 				}
 			}
 		});
+		
+		Coche_color = new JTextField();
+		Coche_color.setColumns(10);
+		Coche.add(Coche_color, "cell 1 6 4 1,grow");
+		
+		JLabel lblNewLabel_6_2 = new JLabel("Numero de puertas");
+		Coche.add(lblNewLabel_6_2, "cell 0 7,alignx left");
+		
+		Coche_numero_puertos = new JTextField();
+		Coche_numero_puertos.setColumns(10);
+		Coche.add(Coche_numero_puertos, "cell 1 7 4 1,grow");
 		Coche.add(Coche_anterior, "cell 0 12,growx");
 		
 		JButton Coche_enviar = new JButton("Enviar");
@@ -879,7 +1049,40 @@ public class Principal extends JFrame {
 			}
 		});
 		Coche.add(Coche_enviar, "cell 1 12,growx");
+		JLabel lblNewLabel_7 = new JLabel("Clientes ");
+		Coche.add(lblNewLabel_7, "cell 0 1,alignx left");
 		
+		JComboBox Coche_clients = new JComboBox();
+		try {
+			Statement st = miConexion.createStatement();
+			ResultSet rscoche = st.executeQuery("SELECT * FROM cliente");
+			Cliente c;
+			while(rscoche.next()) {
+				c = new Cliente();
+				c.setId(rscoche.getInt("codCliente"));
+				c.setDni(rscoche.getString("dniCliente"));
+				c.setNombre(rscoche.getString("nombre"));
+				c.setApellido1(rscoche.getString("apellido1"));
+				c.setApellido2(rscoche.getString("apellido2"));
+				
+				Coche_clients.addItem(c);
+			}
+		} catch (SQLException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		}
+		Coche_clients.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			 Coche co = new Coche();
+			 Coche_matricula.setText("");
+			 Coche_modelo.setText("");
+			 Coche_marca.setText("");
+			 Coche_color.setText("");
+			 Coche_numero_puertos.setText("");
+			 Coche_fecha_matriculacion.setDate(null);
+			}
+		});
+		Coche.add(Coche_clients, "cell 1 1 4 1,growx");
 		JButton Coche_editar = new JButton("Editar");
 		Coche.add(Coche_editar, "cell 2 12,growx");
 		
@@ -965,24 +1168,6 @@ public class Principal extends JFrame {
 		JLabel lblNewLabel_1_3 = new JLabel("Cliente");
 		Alquiler.add(lblNewLabel_1_3, "cell 0 1,alignx left");
 		
-		JComboBox Alquiler_cliente = new JComboBox();
-		Alquiler.add(Alquiler_cliente, "cell 1 1 4 1,growx");
-		Conexion cn = new Conexion();
-		Connection miConexion = cn.getCn();
-		
-		try {
-			Statement s = miConexion.createStatement();
-			ResultSet rs = s.executeQuery ("SELECT * FROM cliente");
-			while (rs.next())
-			{
-
-				Alquiler_cliente.addItem(rs.getString("nombre")+" "+rs.getString("apellido1")+" "+rs.getString("apellido2")  );
-			}
-			
-		} catch (SQLException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
 		
 		
 		
@@ -1030,6 +1215,36 @@ public class Principal extends JFrame {
 			}
 		});
 		Alquiler.add(Alquiler_anterior, "cell 0 12,growx");
+		
+		JComboBox Alquiler_cliente = new JComboBox();
+		Alquiler_cliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Alquiler al = new Alquiler();
+				Alquiler_matricula.setText("");	
+				Alquiler_fecha_aquilar.setDate(null);
+				Alquiler_fecha_entrega.setDate(null);
+				}
+		});
+		Alquiler.add(Alquiler_cliente, "cell 1 1 4 1,growx");
+		try {
+			Statement st = miConexion.createStatement();
+			ResultSet rscoche = st.executeQuery("SELECT * FROM cliente");
+			Cliente c;
+			while(rscoche.next()) {
+				c = new Cliente();
+				c.setId(rscoche.getInt("codCliente"));
+				c.setDni(rscoche.getString("dniCliente"));
+				c.setNombre(rscoche.getString("nombre"));
+				c.setApellido1(rscoche.getString("apellido1"));
+				c.setApellido2(rscoche.getString("apellido2"));
+				
+				Alquiler_cliente.addItem(c);
+			}
+		} catch (SQLException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		}
+		
 		
 		JButton Alquiler_enviar = new JButton("Enviar");
 		Alquiler.add(Alquiler_enviar, "cell 1 12,growx");
@@ -1102,25 +1317,7 @@ public class Principal extends JFrame {
 		lblNewLabel_8_4.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		Taller.add(lblNewLabel_8_4, "cell 5 0 5 1,growx");
 		
-		JLabel lblNewLabel_1_4 = new JLabel("Cliente");
-		Taller.add(lblNewLabel_1_4, "cell 0 1,alignx left");
-		
-		JComboBox Taller_cliente = new JComboBox();
-		Taller.add(Taller_cliente, "cell 1 1 4 1,growx");
-		
-		try {
-			Statement s = miConexion.createStatement();
-			ResultSet rs = s.executeQuery ("SELECT * FROM cliente");
-			while (rs.next())
-			{
-
-				Taller_cliente.addItem(rs.getString("nombre")+" "+rs.getString("apellido1")+" "+rs.getString("apellido2")  );
-			}
-			
-		} catch (SQLException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
+//GRUPO TALLER		
 		
 		
 		JLabel lblNewLabel_9_3 = new JLabel("Consultas sobre Taller");
@@ -1138,15 +1335,6 @@ public class Principal extends JFrame {
 		JLabel lblNewLabel_10_3 = new JLabel("Consultas Taller");
 		Taller.add(lblNewLabel_10_3, "cell 5 2 2 1,alignx right");
 		
-		JComboBox Taller_consultar = new JComboBox();
-		Taller.add(Taller_consultar, "cell 7 2 3 1,growx");
-		
-		JLabel lblNewLabel_3_4 = new JLabel("Fecha entrada");
-		Taller.add(lblNewLabel_3_4, "cell 0 3");
-		
-		Taller_entrada = new JDateChooser();
-		Taller.add(Taller_entrada, "cell 1 3 4 1,grow");
-		
 		JScrollPane scrollPane_3 = new JScrollPane();
 		scrollPane_3.addAncestorListener(new AncestorListener() {
 			public void ancestorAdded(AncestorEvent arg0) {
@@ -1157,16 +1345,69 @@ public class Principal extends JFrame {
 			}
 		});
 		Taller.add(scrollPane_3, "cell 5 3 5 9,grow");
+		taller_tabla = new DefaultTableModel();
+		table_3 = new JTable(taller_tabla);
+		taller_tabla.addColumn("Matricula");
+		taller_tabla.addColumn("Fecha Entrada");
+		taller_tabla.addColumn("Fecha Salida");
 		
-		table_3 = new JTable();
-		table_3.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Cliente", "Matricula", "Fecha entrada", "Fecha salida"
-			}
-		));
 		scrollPane_3.setViewportView(table_3);
+		
+		JComboBox Taller_consultar = new JComboBox();
+		Taller_consultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Cliente c = (Cliente) Taller_consultar.getSelectedItem();
+				Conexion cn = new Conexion();
+				Connection miConexion = cn.getCn();
+				try {
+					PreparedStatement taller = miConexion.prepareStatement("SELECT * FROM cocheventa, reparaciones WHERE cocheventa.codCliente = ? && reparaciones.codCoche = ?");
+					taller.setInt(1, c.getId());
+					taller.setInt(2, c.getId());
+					taller_tabla.setRowCount(0);
+					ResultSet rsmodulos = taller.executeQuery();
+					Object [] file = new Object[3];
+					while (rsmodulos.next()){
+						file[0] = rsmodulos.getString("matriculaReparacion");
+						file[1] = rsmodulos.getString("fechaSalida");
+						file[2] = rsmodulos.getString("fechaEntrada");
+						taller_tabla.addRow(file);
+					}
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		Taller.add(Taller_consultar, "cell 7 2 3 1,growx");
+		try {
+			Statement st = miConexion.createStatement();
+			ResultSet rscoche = st.executeQuery("SELECT * FROM cliente");
+			Cliente c;
+			while(rscoche.next()) {
+				c = new Cliente();
+				c.setId(rscoche.getInt("codCliente"));
+				c.setDni(rscoche.getString("dniCliente"));
+				c.setNombre(rscoche.getString("nombre"));
+				c.setApellido1(rscoche.getString("apellido1"));
+				c.setApellido2(rscoche.getString("apellido2"));
+				
+				Taller_consultar.addItem(c);
+			}
+		} catch (SQLException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		}
+		
+		
+		JLabel lblNewLabel_3_4 = new JLabel("Fecha entrada");
+		Taller.add(lblNewLabel_3_4, "cell 0 3");
+		
+		Taller_entrada = new JDateChooser();
+		Taller.add(Taller_entrada, "cell 1 3 4 1,grow");
+		
+		
 		
 		JLabel lblNewLabel_4_4 = new JLabel("Fecha Salida");
 		Taller.add(lblNewLabel_4_4, "cell 0 4");
@@ -1195,6 +1436,44 @@ public class Principal extends JFrame {
 		
 		Taller_filrros = new JCheckBox("Filtros");
 		Taller.add(Taller_filrros, "cell 0 10");
+		
+		JLabel lblNewLabel_1_4 = new JLabel("Cliente");
+		Taller.add(lblNewLabel_1_4, "cell 0 1,alignx left");
+		
+		JComboBox Taller_cliente = new JComboBox();
+		Taller_cliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Taller_matricula.setText("");
+				Taller_entrada.setDate(null);
+				Taller_sailda.setDate(null);
+				Taller_acetie.setSelected(false);
+				Taller_frenos.setSelected(false);
+				Taller_ruedos.setSelected(false);
+				Taller_pintura.setSelected(false);
+				Taller_bujias.setSelected(false);
+				Taller_filrros.setSelected(false);
+			}
+		});
+		Taller.add(Taller_cliente, "cell 1 1 4 1,growx");
+		try {
+			Statement st = miConexion.createStatement();
+			ResultSet rscoche = st.executeQuery("SELECT * FROM cliente");
+			Cliente c;
+			while(rscoche.next()) {
+				c = new Cliente();
+				c.setId(rscoche.getInt("codCliente"));
+				c.setDni(rscoche.getString("dniCliente"));
+				c.setNombre(rscoche.getString("nombre"));
+				c.setApellido1(rscoche.getString("apellido1"));
+				c.setApellido2(rscoche.getString("apellido2"));
+				
+				Taller_cliente.addItem(c);
+			}
+		} catch (SQLException e3) {
+			// TODO Auto-generated catch block
+			e3.printStackTrace();
+		}
+		
 		
 		JButton Taller_anterior = new JButton("Anterior");
 		Taller_anterior.addActionListener(new ActionListener() {
@@ -1354,5 +1633,10 @@ public class Principal extends JFrame {
 					.addContainerGap(112, Short.MAX_VALUE))
 		);
 		panel_6.setLayout(gl_panel_6);
+	}
+
+	private DefaultTableModel DefaultTableModel() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

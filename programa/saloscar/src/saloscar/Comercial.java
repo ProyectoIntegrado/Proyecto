@@ -79,5 +79,9 @@ public class Comercial {
 	public void setId(int id) {
 		this.id = id;
 	}
+	@Override
+	public String toString() {
+		return  nombre + " " + apellido1 + " " + apellido2 ;
+	}
 	
 }
